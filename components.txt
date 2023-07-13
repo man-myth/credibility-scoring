@@ -1,0 +1,46 @@
+Main
+    Side Nav
+    Content Panel
+
+Side Nav
+    Profile
+    Dashboard
+    Clients
+    loans
+    Notifications
+    Settings
+
+Dashboard
+    Status card
+    Approved loans card
+    type of loans card
+    factors card
+    calendar card
+
+Clients
+    Header
+    Content
+        Table
+
+Loans
+    Header
+    Content
+        Table
+
+Header(for clients and loans)
+    Search(text)
+    SearchBar
+    ClientsNum
+    AddClient
+    FilterClient
+    SortClient
+
+New Client
+    Form
+
+New loan
+    form
+
+ClientDetails
+
+LoanDetails
