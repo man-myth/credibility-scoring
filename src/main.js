@@ -4,6 +4,7 @@ import 'material-design-icons/iconfont/material-icons.css'
 import 'jquery/dist/jquery.min.js'
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
 
-createApp(App).mount('#app')
+createApp(App).use(router).mount('#app')
 
