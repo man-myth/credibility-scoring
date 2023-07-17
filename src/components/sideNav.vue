@@ -1,25 +1,23 @@
 <template>
-    <div class="col s3">
+    <div class="">
         <ul id="slide-out" class="sidenav sidenav-fixed">
             <li>
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="public/images/profile-pic.jpg" class="circle">
-                        </div>
-                        <div class="card-title center-align">Juan Dela Cruz</div>
+                <div class="card">
+                    <div class="card-image">
+                        <img src="public/images/profile-pic.jpg" class="circle">
                     </div>
+                    <div class="card-title center-align">Juan Dela Cruz</div>
                 </div>
             </li>
             <li></li>
-            <li><a href="#!"><i class="material-icons">dashboard</i>Dashboard</a></li>
-            <li><a href="#!"><i class="material-icons">person</i>Clients</a></li>
-            <li><a href="#!"><i class="material-icons">description</i>Loans</a></li>
+            <li><router-link to="/"><i class="material-icons">dashboard</i>Dashboard</router-link></li>
+            <li><router-link to="/clients"><i class="material-icons">person</i>Clients</router-link></li>
+            <li><router-link to="/loans"><i class="material-icons">description</i>Loans</router-link></li>
             <li>
                 <div class="divider"></div>
             </li>
-            <li><a href="#!"><i class="material-icons">notifications</i>Notifications</a></li>
-            <li><a href="#!"><i class="material-icons">settings</i>Settings</a></li>
+            <li><router-link to=""><i class="material-icons">notifications</i>Notifications</router-link></li>
+            <li><router-link to=""><i class="material-icons">settings</i>Settings</router-link></li>
         </ul>
         <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -33,9 +31,7 @@ import { onMounted } from 'vue';
     // })
 </script>
 <style>
-
-#slide-out{
+#slide-out {
     background-color: #E9B81E;
 }
-
 </style>

@@ -8,8 +8,25 @@ onMounted(() => {
 </script>
 
 <template>
-  <sideNav></sideNav>
-  <div>
-    <router-view></router-view>
-  </div>
+  <main class= "main">
+    <sideNav class="left-panel"></sideNav>
+    <div class="righ-panel">
+      <router-view></router-view>
+    </div>
+  </main>
 </template>
+
+<style>
+.main {
+  display: flex;
+}
+.left-panel{
+  width: 310px;
+}
+
+@media only screen and (max-width: 992px) {
+  .left-panel{
+    width: auto;
+  }
+}
+</style>
