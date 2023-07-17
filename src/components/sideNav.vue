@@ -2,11 +2,11 @@
     <div class="">
         <ul id="slide-out" class="sidenav sidenav-fixed">
             <li>
-                <div class="card">
-                    <div class="card-image">
-                        <img src="public/images/profile-pic.jpg" class="circle">
+                <div class="card-panel">
+                    <div class="">
+                        <ProfileAvatar image="src/assets/images/profile-pic.jpeg" customSize="150px"></ProfileAvatar>
                     </div>
-                    <div class="card-title center-align">Juan Dela Cruz</div>
+                    <div class="card center-align">Juan Dela Cruz</div>
                 </div>
             </li>
             <li></li>
@@ -23,15 +23,22 @@
     </div>
 </template>
 
-<script setup>
-import { onMounted } from 'vue';
-    // onMounted(()=>{
-    //     // var elems = document.querySelectorAll('.sidenav')
-    //     // M.Sidenav.getInstance(elems)
-    // })
+<script>
+import ProfileAvatar from 'vue-profile-avatar'
+export default {
+  components: {
+    ProfileAvatar
+  },
+}
 </script>
+
+
+
 <style>
 #slide-out {
     background-color: #E9B81E;
+}
+.card img{
+    
 }
 </style>
