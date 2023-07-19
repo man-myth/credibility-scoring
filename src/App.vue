@@ -1,32 +1,57 @@
 <script setup>
 import { onMounted } from "vue";
-import sideNav from "./components/sideNav.vue";
 import M from "materialize-css";
+import SideNav from "/src/components/SideNav.vue";
 onMounted(() => {
   M.AutoInit();
 });
 </script>
 
 <template>
-  <main class= "main">
-    <sideNav class="left-panel"></sideNav>
-    <div class="righ-panel">
+  <main class= "row">
+    <SideNav class="col s0 m0 l3"></SideNav>
+    <div class="col s12 m12 l9">
       <router-view></router-view>
     </div>
   </main>
 </template>
 
 <style>
-.main {
-  display: flex;
+html{
+  overflow-x: hidden;
 }
-.left-panel{
-  width: 310px;
-}
-
-@media only screen and (max-width: 992px) {
-  .left-panel{
-    width: auto;
+/* @media only screen and (min-width: 1490px){
+  .row .col.l3 {
+    width: 20%;
+  }
+  .row .col.l9 {
+    width: 80%;
   }
 }
+@media only screen and (min-width: 993px){
+  .row .col.l3 {
+    width: 30%;
+  }
+  .row .col.l9 {
+    width: 70%;
+  }
+} */
+@media only screen and (min-width: 1490px){
+  .row .col.l3 {
+    width: 20%;
+  }
+  .row .col.l9 {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 993px) and (max-width: 1489px){
+  .row .col.l3 {
+    width: 30%;
+  }
+  .row .col.l9 {
+    width: 70%;
+  }
+}
+
+
 </style>
