@@ -14,8 +14,8 @@
             <li><router-link to="/clients"><i class="material-icons">person</i>Clients</router-link></li>
             <li><router-link to="/loans"><i class="material-icons">description</i>Loans</router-link></li>
             <li></li>
-            <li><router-link to=""><i class="material-icons">notifications</i>Notifications</router-link></li>
-            <li><router-link to=""><i class="material-icons">settings</i>Settings</router-link></li>
+            <li><router-link to="/notifiactions"><i class="material-icons">notifications</i>Notifications</router-link></li>
+            <li><router-link to="/settings"><i class="material-icons">settings</i>Settings</router-link></li>
         </ul>
         <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -33,19 +33,34 @@ export default {
 
 
 <style>
+ul#slide-out {
+    padding: 0;
+}
+
 .sidenav {
     color: white;
 }
 
 .sidenav li>a {
     color: white;
-    /* display: flex;
-    justify-content: center; */
-    margin-left: 2.4rem;
-    /* pading-left: 2.4rem; */
-
+    font-size: 1.3rem;
+    padding-left: 6rem;
+    
 }
 
+.sidenav li>a:focus i.material-icons{
+    color: black;
+}
+.sidenav li>a:focus {
+    background-color: #E8E8E8;
+    color: black;
+}
+.sidenav li>a:hover {
+    color: black;
+}
+.sidenav li>a:hover i.material-icons{
+    color: black;
+}
 .sidenav li>a>i.material-icons {
     color: white;
 }
@@ -69,4 +84,9 @@ export default {
     .row .col.l3 {
         left: 0;
     }
-}</style>
+    .flow-text {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+}
+</style>
