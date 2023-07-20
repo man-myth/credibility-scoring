@@ -8,50 +8,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class= "row">
-    <SideNav class="col s0 m0 l3"></SideNav>
+  <div class= "row">
+    <SideNav class="col s12 m1 l3"></SideNav>
     <div class="col s12 m12 l9">
       <router-view></router-view>
     </div>
-  </main>
+  </div>
 </template>
 
 <style>
 html{
+  margin: 0;
   overflow-x: hidden;
+  background-color: #E8E8E8;
+  box-sizing: border-box;
 }
-/* @media only screen and (min-width: 1490px){
-  .row .col.l3 {
-    width: 20%;
-  }
-  .row .col.l9 {
-    width: 80%;
-  }
-}
-@media only screen and (min-width: 993px){
-  .row .col.l3 {
-    width: 30%;
-  }
-  .row .col.l9 {
-    width: 70%;
-  }
-} */
-@media only screen and (min-width: 1490px){
-  .row .col.l3 {
-    width: 20%;
-  }
-  .row .col.l9 {
-    width: 80%;
-  }
-}
-@media only screen and (min-width: 993px) and (max-width: 1489px){
-  .row .col.l3 {
-    width: 30%;
-  }
-  .row .col.l9 {
-    width: 70%;
-  }
-}
-
 
 </style>

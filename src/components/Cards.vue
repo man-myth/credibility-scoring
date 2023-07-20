@@ -1,9 +1,12 @@
 <template>
-    <div class="card">
-        <div class="card-content">
+    <div class="col s12 m4 l4">
+        <div class="card">
+            <div class="card-content">
             <span class="card-title">{{ cardHeading }}</span>
             <p>{{ cardContent }}</p>
         </div>
+        </div>
+        
     </div>
 </template>
 
@@ -12,3 +15,6 @@ export default{
     props:['cardHeading', 'cardContent']
 }
 </script>
+<style>
+
+</style>

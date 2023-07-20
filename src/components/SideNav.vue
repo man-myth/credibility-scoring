@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <ul id="slide-out" class="sidenav sidenav-fixed">
+        <ul id="slide-out" class="sidenav sidenav-fixed col l3">
             <li>
                 <div class="profile">
                     <div class="profile-avatar">
@@ -8,7 +8,7 @@
                     </div>
                     <div class="flow-text center-align">Juan Dela Cruz</div>
                 </div>
-            </li >
+            </li>
             <li></li>
             <li><router-link to="/"><i class="material-icons">dashboard</i>Dashboard</router-link></li>
             <li><router-link to="/clients"><i class="material-icons">person</i>Clients</router-link></li>
@@ -24,18 +24,19 @@
 <script>
 import ProfileAvatar from 'vue-profile-avatar'
 export default {
-  components: {
-    ProfileAvatar
-  },
+    components: {
+        ProfileAvatar
+    },
 }
 </script>
 
 
 
 <style>
-.sidenav{
+.sidenav {
     color: white;
 }
+
 .sidenav li>a {
     color: white;
     /* display: flex;
@@ -44,19 +45,28 @@ export default {
     /* pading-left: 2.4rem; */
 
 }
+
 .sidenav li>a>i.material-icons {
     color: white;
 }
+
 #slide-out {
     background-color: #E9B81E;
 }
-.profile{
+
+.profile {
     margin-top: 3rem;
     height: 15rem;
 }
-.profile-avatar{
+
+.profile-avatar {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-</style>
+
+@media only screen and (min-width: 993px) {
+    .row .col.l3 {
+        left: 0;
+    }
+}</style>
