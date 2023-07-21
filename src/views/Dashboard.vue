@@ -6,24 +6,24 @@
         <div class="row">
             <div class="col s12 m8 l8">
                 <div class="card">
-                    <canvas id="monthlySales" class="card-content" ></canvas>
+                    <canvas id="monthlySales" class="card-content"></canvas>
                 </div>
             </div>
             <div class="col s12 m4 l4">
                 <div class="card">
-                    <canvas id="laonsApproved" class="card-content" ></canvas>
+                    <canvas id="loansApproved" class="card-content"></canvas>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col s12 m6 l6">
                 <div class="card">
-                    <canvas id="factors" class="card-content" ></canvas>
+                    <canvas id="factors" class="card-content"></canvas>
                 </div>
             </div>
             <div class="col 12 m6 l6">
-                <div class="card">
-                    <canvas id="calendar" class="card-content" ></canvas>
+                <div class="card" id="calendar">
+                <VCalendar title-position="left" borderless transparent :attributes="getAttributes()" />
                 </div>
             </div>
         </div>
@@ -33,48 +33,108 @@
 <script>
 import Cards from "/src/components/Cards.vue";
 import Chart from 'chart.js/auto';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 export default {
     methods: {
         updateContainerClass() {
             if (window.innerWidth < 993) {
-                this.containerClass= 'container'
+                this.containerClass = 'container'
             } else {
                 this.containerClass = 'container-lg'
             }
+        },
+        getAttributes() {
+            return [{
+                dates: new Date(2022, 10, 2),
+                dot: {
+                    color: "red",
+                    // class: todo.isComplete ? 'opacity-75' : '',
+                },
+                popover: {
+                    label: "Alex Smith",
+                },
+            }];
+        },
+    },
+        components: {
+            Cards,
+            VCalendar: Calendar
+        },
+        data() {
+            return {
+                cards: [["Approved", 105], ["Declined", 90], ["Pending", 50]],
+                containerClass: 'container-lg',
+                salesData: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    datasets: [{
+                        label: '# of accepted loans',
+                        data: [120, 190, 130, 150, 120, 150],
+                        borderWidth: 2
+                    }]
+                },
+                loansData: {
+                    labels: ['Personal', 'end-to-end', 'Business'],
+                    datasets: [{
+                        label: '# of accepted loans',
+                        data: [51, 72, 23,],
+                        borderWidth: 2
+                    }]
+                },
+                factorsData: {
+                    labels: ['Age', 'Dependents', 'Marital Status', 'Education', 'Gender', 'Income', 'Occupation', 'Assets'],
+                    datasets: [{
+                        label: '# of accepted loans',
+                        data: [11, 10, 9, 7, 10, 21, 20, 12,],
+                    }]
+                }
+
+            }
+        },
+        mounted() {
+            window.addEventListener('resize', this.updateContainerClass);
+            const monthlySales = document.getElementById('monthlySales');
+            new Chart(monthlySales, {
+                type: 'line',
+                data: this.salesData,
+            });
+
+            const loansApproved = document.getElementById('loansApproved');
+            new Chart(loansApproved, {
+                type: 'bar',
+                data: this.loansData,
+            });
+
+            const factors = document.getElementById('factors');
+            new Chart(factors, {
+                plugins: [ChartDataLabels],
+                type: 'doughnut',
+                data: this.factorsData,
+                options: {
+                    plugins: {
+                        datalabels: {
+                            // color: function (data) {
+                            //     // var rgb = hexToRgb(data.dataset.backgroundColor[data.index]);
+                            //     console.log(data.dataset.backgroundColor[data.index])
+                            //     var threshold = 140;
+                            //     var luminance = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
+                            //     return luminance > threshold ? 'black' : 'white';
+                            // },
+                        }
+                    }
+                }
+
+            });
+
+
+
         }
-    },
-    components: {
-        Cards
-    },
-    data() {
-        return {
-            cards: [["Approved", 105], ["Declined", 90], ["Pending", 50]],
-            containerClass: 'container-lg'
-        }
-    },
-    mounted() {
-        window.addEventListener('resize', this.updateContainerClass);
-        const monthlySales = document.getElementById('monthlySales');
-        new Chart(monthlySales, {
-            type: 'line',
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-                datasets: [{
-                    label: '# of accepted loans',
-                    data: [120, 190, 130, 150, 120, 150],
-                    borderWidth: 2
-                }]
-            },
-        });
-    },
-    // beforeDestroy() {
-    //     window.removeEventListener('resize', this.updateContainerClass);
-    // }
+
 }
 </script>
 
 <style scoped>
-.container-lg{
+.container-lg {
     padding-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -86,10 +146,15 @@ export default {
     width: 95%;
 }
 
-.card{
+.card {
     border-radius: 40px;
+    min-height: 30vh;
 }
 
+#calendar{
+    display: flex;
+    justify-content: center;
+}
 
 /* @media only screen and (max-width: 992px) {
     .container-lg{
