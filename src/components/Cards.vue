@@ -16,5 +16,5 @@ export default{
 }
 </script>
 <style>
-
+.card {border-radius: 40px;}
 </style>

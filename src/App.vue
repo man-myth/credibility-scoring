@@ -23,5 +23,7 @@ html{
   background-color: #E8E8E8;
   box-sizing: border-box;
 }
-
+.row{
+  margin-bottom: 0px;
+}
 </style>
