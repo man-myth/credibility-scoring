@@ -45,22 +45,25 @@ ul#slide-out {
     color: white;
     font-size: 1.3rem;
     padding-left: 6rem;
-    
 }
 
-.sidenav li>a:focus i.material-icons{
+.sidenav li>a:focus i.material-icons {
     color: black;
 }
+
 .sidenav li>a:focus {
     background-color: #E8E8E8;
     color: black;
 }
+
 .sidenav li>a:hover {
     color: black;
 }
-.sidenav li>a:hover i.material-icons{
+
+.sidenav li>a:hover i.material-icons {
     color: black;
 }
+
 .sidenav li>a>i.material-icons {
     color: white;
 }
@@ -84,9 +87,17 @@ ul#slide-out {
     .row .col.l3 {
         left: 0;
     }
+
     .flow-text {
         font-size: 2rem;
         font-weight: bold;
     }
 }
-</style>
+
+@media only screen and (max-width: 1140px) {
+    .sidenav li>a {
+        color: white;
+        font-size: 1.3rem;
+        padding-left: 3rem;
+    }
+}</style>
