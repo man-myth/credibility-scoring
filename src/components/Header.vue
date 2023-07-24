@@ -6,34 +6,36 @@
                 <div class="title-count"><i class="material-icons">{{ icon }}</i>{{ count }}</div>
             </div>
             <div class="col m7 l7">
-                <div class="card search">
-                    <i class="material-icons">search</i>
-                    <span>Search</span>
+                <div class="card">
+                    <div class="card-content input-field">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="search" placeholder="Search">
+                        
+                    </div>
+
                 </div>
             </div>
-            <div class="col m1 l1">
-                <div class="btn-floating btn-large waves-effect waves-light">
+            <div class="col m1 l1 center">
+                <router-link :to=getLink class="btn-floating btn-medium waves-effect waves-light">
                     <i class="material-icons">add</i>
-                </div>
+                </router-link>
 
             </div>
-            <div class="col m1 l1">
-                <div class="btn-floating btn-large waves-effect waves-light">
+            <div class="col m1 l1 center">
+                <div class="btn-floating btn-medium waves-effect waves-light">
                     <i class="material-icons">filter_list</i>
                 </div>
 
             </div>
-            <div class="col m1 l1">
-                <div class="btn-floating btn-large waves-effect waves-light">
+            <div class="col m1 l1 center">
+                <div class="btn-floating btn-medium waves-effect waves-light">
                     <i class="material-icons">sort_by_alpha</i>
                 </div>
 
             </div>
 
-
-            <div></div>
         </div>
-        
+
     </div>
 </template>
 <script>
@@ -52,6 +54,9 @@ export default {
                 this.containerClass = 'container-lg'
             }
         },
+        getLink() {
+            return "/" + this.headerTitle.toLowerCase() + "-new"
+        }
     },
     mounted() {
         window.addEventListener('resize', this.updateContainerClass);
@@ -60,10 +65,22 @@ export default {
 </script>
 
 <style scoped>
+.center {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
 .container-lg {
     padding: 1rem;
     width: 100%;
 }
+
 h4.flow-text {
     margin-bottom: 0;
     margin-top: 15px;
@@ -72,22 +89,29 @@ h4.flow-text {
 .btn-floating {
     background-color: #E9B81E;
 }
-.btn-floating i{
+
+.btn-floating i {
     color: black;
 }
-.card.search {
-    min-height: 5vh;
-    display: flex;
-    align-items: center;
+.card{
+    background-color: #7f7b7b67;
+}
+.card-content{
+    padding:0 1.5rem 0 1.5rem ;
+}
+ #search:focus{
+    border-bottom: 1px solid #000000;
+    box-shadow: 0 1px 0 0 #000000;
 }
 
-.search i.material-icons {
-    margin: 1rem;
-
+ .input-field .prefix.active {
+    color: #000000;
+}
+.input-field .prefix{
+    color: #ffffff;
 }
 .title-count {
     display: flex;
     align-items: center;
     margin-top: 5px;
-}
-</style>
+}</style>

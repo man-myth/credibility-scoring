@@ -14,7 +14,7 @@
             <li><router-link to="/clients"><i class="material-icons">person</i>Clients</router-link></li>
             <li><router-link to="/loans"><i class="material-icons">description</i>Loans</router-link></li>
             <li></li>
-            <li><router-link to="/notifiactions"><i class="material-icons">notifications</i>Notifications</router-link></li>
+            <li><router-link to="/notifications"><i class="material-icons">notifications</i>Notifications</router-link></li>
             <li><router-link to="/settings"><i class="material-icons">settings</i>Settings</router-link></li>
         </ul>
         <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
