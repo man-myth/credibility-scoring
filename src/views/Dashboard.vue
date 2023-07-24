@@ -156,7 +156,9 @@ export default {
     justify-content: center;
     padding: 1rem;
 }
-
+#loansApproved{
+    min-height: 30vh;
+}
 /* @media only screen and (max-width: 992px) {
     .container-lg{
         width: 90vw;
