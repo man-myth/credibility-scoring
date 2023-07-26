@@ -103,7 +103,7 @@
             </div>
 
             <div class="input-field col s4">
-                <select>
+                <select ref="mySelect">
                     <option value="" disabled selected></option>
                     <option value="1">Single</option>
                     <option value="2">Married</option>
@@ -114,15 +114,16 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
 import { onUnmounted } from 'vue';
 
 export default {
-    data(){
-        return{
-           
+    data() {
+        return {
+
         }
     },
     mounted() {
@@ -132,12 +133,10 @@ export default {
         M.FormSelect.init(select);
     },
 
-    // unmounted(){
-    //     var datePicker = document.querySelectorAll('.datepicker');
-    //     var select = document.querySelectorAll('select');
-    //     datePicker.forEach((d)=> d.remove())
-    //     select.forEach((d)=> d.remove())
-    // }
+    beforeUnmount() {
+        var select = document.querySelectorAll('select');
+        select.forEach((s)=>{M.FormSelect.getInstance(s).destroy()})
+    }
 }
 </script>
 
