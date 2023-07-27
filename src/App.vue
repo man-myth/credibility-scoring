@@ -26,4 +26,12 @@ html{
 .row{
   margin-bottom: 0px;
 }
+.card {border-radius: 40px;}
+.router-link-active.router-link-exact-active{
+    background-color: #E8E8E8;
+    color: black;
+}
+.router-link-active.router-link-exact-active i.material-icons{
+    color: black;
+}
 </style>

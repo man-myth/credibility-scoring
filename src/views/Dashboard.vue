@@ -5,27 +5,31 @@
         </div>
         <div class="row">
             <div class="col s12 m8 l8">
-                <div class="card sales">
+                <div class="card">
+                    <div class="chart-container sales">
                     <canvas id="monthlySales" class="card-content"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="col s12 m4 l4">
                 <div class="card">
+                    <div class="chart-container loans">
                     <canvas id="loansApproved" class="card-content"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col s12 m6 l6">
+            <div class="col s12 m5 l5">
                 <div class="card">
                     <div class="chart-container factors">
                         <canvas id="factors" class="card-content"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="col 12 m6 l6">
+            <div class="col 12 m7 l7">
                 <div class="card" id="calendar">
-                    <VCalendar expanded title-position="left" borderless transparent :attributes="getAttributes()" />
+                    <VCalendar class="calendar" expanded title-position="left" borderless transparent :attributes="getAttributes()" />
                 </div>
             </div>
         </div>
@@ -160,36 +164,25 @@ export default {
     width: 95%;
 }
 
-.card {
-    border-radius: 40px;
-    min-height: 30vh;
-}
-
 #calendar {
     display: flex;
     justify-content: center;
     padding: 1rem;
+    /* overflow: hidden; */
 }
 
-#loansApproved {
-    height: 30vh;
+.chart-container.sales, .chart-container.loans{
+    height: 40vh;
 }
 
-.card.sales {
-    height: 30vh;
-}
-
-.factors,
-#calendar {
-    height: 43vh;
+.factors, #calendar, .calendar {
+    height: 38vh;
 }
 
 .chart-container {
     position: relative;
     margin: auto;
 }
-
-.card canvas {}
 
 /* @media only screen and (max-width: 992px) {
     .container-lg{

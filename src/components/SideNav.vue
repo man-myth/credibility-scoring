@@ -47,15 +47,6 @@ ul#slide-out {
     padding-left: 6rem;
 }
 
-.sidenav li>a:focus i.material-icons {
-    color: black;
-}
-
-.sidenav li>a:focus {
-    background-color: #E8E8E8;
-    color: black;
-}
-
 .sidenav li>a:hover {
     color: black;
 }

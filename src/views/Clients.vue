@@ -65,6 +65,7 @@ export default {
     },
     mounted() {
         window.addEventListener('resize', this.updateContainerClass);
+        
     }
 }
 </script>
