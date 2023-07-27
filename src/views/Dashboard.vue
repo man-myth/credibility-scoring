@@ -1,11 +1,11 @@
 <template>
     <div :class="containerClass">
-        <div class="row">
+        <div class="row top-cards">
             <Cards v-for="card in cards" :cardHeading="card[0]" :cardContent="card[1]"></Cards>
         </div>
         <div class="row">
             <div class="col s12 m8 l8">
-                <div class="card">
+                <div class="card sales">
                     <canvas id="monthlySales" class="card-content"></canvas>
                 </div>
             </div>
@@ -18,7 +18,9 @@
         <div class="row">
             <div class="col s12 m6 l6">
                 <div class="card">
-                    <canvas id="factors" class="card-content"></canvas>
+                    <div class="chart-container factors">
+                        <canvas id="factors" class="card-content"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="col 12 m6 l6">
@@ -97,12 +99,20 @@ export default {
         new Chart(monthlySales, {
             type: 'line',
             data: this.salesData,
+            options:{
+                maintainAspectRatio: false,
+
+            }
         });
 
         const loansApproved = document.getElementById('loansApproved');
         new Chart(loansApproved, {
             type: 'bar',
             data: this.loansData,
+            options:{
+                maintainAspectRatio: false,
+
+            }
         });
 
         const factors = document.getElementById('factors');
@@ -111,6 +121,7 @@ export default {
             type: 'doughnut',
             data: this.factorsData,
             options: {
+                maintainAspectRatio: false,
                 plugins: {
                     datalabels: {
                         // color: function (data) {
@@ -120,7 +131,10 @@ export default {
                         //     var luminance = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
                         //     return luminance > threshold ? 'black' : 'white';
                         // },
-                    }
+                    },
+                    legend: {
+                        position: 'right'
+                    },
                 }
             }
 
@@ -156,9 +170,27 @@ export default {
     justify-content: center;
     padding: 1rem;
 }
-#loansApproved{
-    min-height: 30vh;
+
+#loansApproved {
+    height: 30vh;
 }
+
+.card.sales {
+    height: 30vh;
+}
+
+.factors,
+#calendar {
+    height: 43vh;
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+}
+
+.card canvas {}
+
 /* @media only screen and (max-width: 992px) {
     .container-lg{
         width: 90vw;
@@ -169,5 +201,4 @@ export default {
     .container-lg{
         width: 70vw;
     }
-} */
-</style>
+} */</style>

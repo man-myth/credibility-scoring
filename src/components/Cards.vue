@@ -15,6 +15,9 @@ export default{
     props:['cardHeading', 'cardContent']
 }
 </script>
-<style>
+<style scoped>
 .card {border-radius: 40px;}
+.card{
+    height: 15vh;
+}
 </style>
