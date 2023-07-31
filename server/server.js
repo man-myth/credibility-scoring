@@ -2,7 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./app/models");
-db.sequelize.sync();
+db.sequelize.sync()
+  .then(() => {
+  console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });;
 const app = express();
 
 var corsOptions = {
@@ -21,6 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to credit-scoring application." });
 });
+
+require("./app/routes/client.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
