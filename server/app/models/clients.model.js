@@ -1,7 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
     const Client = sequelize.define("client", {
       client_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        primaryKey: true
       },
       name: {
         type: Sequelize.STRING
@@ -42,7 +43,7 @@ module.exports = (sequelize, Sequelize) => {
       income: {
         type: Sequelize.INTEGER
       },
-      epenses: {
+      expenses: {
         type: Sequelize.INTEGER
       },
       savings: {

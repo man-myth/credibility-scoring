@@ -24,9 +24,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to credit-scoring application." });
-});
+// app.get("/", (req, res) => {
+//   // res.json({ message: "now Welcome to credit-scoring application."});
+//   res.send(db.clients);
+
+// });
 
 require("./app/routes/client.routes")(app);
 

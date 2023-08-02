@@ -2,8 +2,17 @@
 import { onMounted } from "vue";
 import M from "materialize-css";
 import SideNav from "/src/components/SideNav.vue";
+import ClientDataService from "/src/services/ClientDataService";
+
+
 onMounted(() => {
   M.AutoInit();
+  ClientDataService.getAll().then(response => {
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        })
 });
 </script>
 
