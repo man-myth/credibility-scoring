@@ -10,7 +10,13 @@ module.exports = (sequelize, Sequelize) => {
       gender: {
         type: Sequelize.STRING
       },
-      age: {
+      birthday: {
+        type: Sequelize.DATEONLY
+      },
+      contact:{
+        type: Sequelize.STRING
+      },
+      credit_score:{
         type: Sequelize.INTEGER
       },
       marital_status: {

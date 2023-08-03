@@ -1,10 +1,10 @@
 module.exports = app => {
-    const clients = require("../controllers/clients.controller.js");
+    const loans = require("../controllers/loans.controller.js");
   
     var router = require("express").Router();
   
     // Create a new Tutorial
-    router.get("/clients", clients.findAll);
+    router.get("/loans", loans.findAll);
   
     // // Retrieve all Tutorials
     // router.get("/", clients.findAll);

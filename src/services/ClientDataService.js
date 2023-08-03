@@ -2,7 +2,7 @@ import http from "../http-common";
 
 class ClientDataService {
   getAll() {
-    return http.get("/");
+    return http.get("/clients");
   }
 
   get(id) {
