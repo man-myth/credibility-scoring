@@ -46,7 +46,7 @@
                     <h6>{{client.contact}}</h6>   
                 </div>
                 <div class="col s2">
-                    <h6>{{ countLoans(client.client_id) }}</h6>
+                    <h6>{{countLoans(client.client_id)}}</h6>
                 </div>
                 <div class="col s1">
                     <h6>{{ client.credit_score }}</h6>
@@ -62,6 +62,7 @@
 <script>
 import Header from '/src/components/Header.vue'
 import ClientDataService from "/src/services/ClientDataService";
+import LoanDataService from "/src/services/LoanDataService";
 
 export default {
     components: {
@@ -70,7 +71,6 @@ export default {
     data() {
         return {
             clients: [],
-            loans: [],
             containerClass: 'container-lg',
         }
     },
@@ -78,14 +78,23 @@ export default {
         getClients() {
             ClientDataService.getAll().then(response => {
                 this.clients = response.data;
-                console.log(response.data);
+                // console.log(response.data);
+
             })
                 .catch(e => {
                     console.log(e);
                 })
         },
         countLoans(id){
-            console.log("counting loans of " + id)
+            
+            LoanDataService.getLoans(id)
+            .then(res=>{
+                console.log(res.data.count)
+                return res.data.count;
+            })
+            .catch(e => {
+                    console.log(e);
+                })
         }
        
     },
@@ -104,6 +113,7 @@ export default {
     mounted() {
         window.addEventListener('resize', this.updateContainerClass);
         this.getClients();
+
     }
 }
 </script>

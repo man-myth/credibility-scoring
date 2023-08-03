@@ -31,6 +31,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // });
 
 require("./app/routes/client.routes")(app);
+require("./app/routes/loans.routes")(app);
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

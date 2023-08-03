@@ -5,6 +5,10 @@ class LoanDataService {
     return http.get("/loans");
   }
 
+  getLoans(id){
+    return http.get(`/loans/${id}`)
+  }
+
 }
 
 export default new LoanDataService();

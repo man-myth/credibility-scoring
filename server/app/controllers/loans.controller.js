@@ -1,26 +1,48 @@
 const db = require("../models");
-const Client = db.clients;
+const Loans = db.loans;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-  Client.findAll()
+  Loans.findAll()
   .then((data) => {
     res.send(data);
   })
   .catch((err) => {
     res.status(500).send({
       message:
-        err.message || "Some error occurred while retrieving tutorials.",
+        err.message || "Some error occurred while retrieving the loans databse.",
     });
   });
 };
 
+exports.findLoans = (req, res) => {
+  const id = req.params.id;
 
+  Loans.findAndCountAll({
+    where:{
+        client_id: id,
+        loan_status: 'Approved'
+    }
+  })
+    .then((data) => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find loans with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving loans with client id=" + id
+      });
+    });
 
-
+};
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {};
 
