@@ -6,7 +6,11 @@ class LoanDataService {
   }
 
   getLoans(id){
-    return http.get(`/loans/${id}`)
+    return http.get(`/loans/client/${id}`)
+  }
+  
+  getLoansByType(type){
+    return http.get(`/loans/${type}`)
   }
 
 }

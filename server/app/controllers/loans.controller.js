@@ -7,41 +7,58 @@ const Op = db.Sequelize.Op;
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
   Loans.findAll()
-  .then((data) => {
-    res.send(data);
-  })
-  .catch((err) => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while retrieving the loans databse.",
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message ||
+          "Some error occurred while retrieving the loans databse.",
+      });
     });
-  });
 };
 
-exports.findLoans = (req, res) => {
+exports.findLoansById = (req, res) => {
   const id = req.params.id;
 
   Loans.findAndCountAll({
-    where:{
-        client_id: id,
-        loan_status: 'Approved'
-    }
+    where: {
+      client_id: id,
+      loan_status: "Approved",
+    },
   })
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find loans with id=${id}.`
+          message: `Cannot find loans with id=${id}.`,
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving loans with client id=" + id
+        message: "Error retrieving loans with client id=" + id,
       });
     });
+};
 
+exports.findLoansByType = (req, res) => {
+  const type = req.params.type;
+  Loans.findAll({
+    where: {
+      loan_status: type,
+    },
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving approved loans",
+      });
+    });
 };
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {};
