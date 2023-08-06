@@ -18,7 +18,6 @@ export default {
         countLoans() {
             LoanDataService.getLoans(this.client.client_id)
                 .then(res => {
-                    console.log(res.data.count)
                     this.loans = res.data.count;
                 })
                 .catch(e => {
