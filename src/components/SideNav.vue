@@ -4,7 +4,7 @@
             <li>
                 <div class="profile">
                     <div class="profile-avatar">
-                        <ProfileAvatar image="src/assets/images/profile-pic.jpeg" customSize="150px"></ProfileAvatar>
+                        <ProfileAvatar username="j" image="src/assets/images/profile-pic.jpeg" customSize="150px" ></ProfileAvatar>
                     </div>
                     <div class="flow-text center-align">Juan Dela Cruz</div>
                 </div>
@@ -27,6 +27,10 @@ export default {
     components: {
         ProfileAvatar
     },
+    mounted(){
+        var elems = document.querySelectorAll('.materialboxed');
+        M.Materialbox.init(elems);
+    }
 }
 </script>
 
@@ -40,6 +44,7 @@ ul#slide-out {
 .sidenav {
     color: white;
 }
+
 
 .sidenav li>a {
     color: white;

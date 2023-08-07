@@ -14,8 +14,14 @@
             <div class="col s2">
                 <b> Name:</b>
             </div>
-            <div class="input-field col s10">
+            <div class="input-field col s4">
                 <input id="name" type="text">
+            </div>
+            <div class="col s2 right-align">
+                <b> Picture:</b>
+            </div>
+            <div class="input-field col s4">
+                <input type="file" id="picture" name="filename" accept="image/*">
             </div>
         </div>
         <!-- Second Row -->
@@ -117,13 +123,24 @@
 
         <!-- sixth row -->
         <div class="row">
-            <div class="col s3">
+            <div class="col s2">
                 <b>Employment Status:</b>
             </div>
-            <div class="input-field col s9">
+            <div class="input-field col s4">
                 <select>
                     <option value="" disabled selected></option>
                     <option value="1">Rent</option>
+                    <option value="2">Own</option>
+                    <option value="3">Living in someone's home for free</option>
+                </select>
+            </div>
+            <div class="col s2">
+                <b>Education:</b>
+            </div>
+            <div class="input-field col s4">
+                <select>
+                    <option value="" disabled selected></option>
+                    <option value="1">Highschool</option>
                     <option value="2">Own</option>
                     <option value="3">Living in someone's home for free</option>
                 </select>
@@ -132,10 +149,10 @@
 
         <!-- seveth row -->
         <div class="row">
-            <div class="col s3">
-                <b>Occpation:</b>
+            <div class="col s2">
+                <b>Occupation:</b>
             </div>
-            <div class="input-field col s9">
+            <div class="input-field col s10">
                 <select>
                     <option value="" disabled selected></option>
                     <option value="1">Rent</option>
@@ -152,46 +169,44 @@
                 <b>Income:</b>
             </div>
             <div class="input-field col s3">
-                <select>
-                    <option value="" disabled selected></option>
-                    <option value="1">Rent</option>
-                    <option value="2">Own</option>
-                    <option value="3">Living in someone's home for free</option>
-                </select>
+                <input id="Income" type="text">
             </div>
             <div class="col s3">
                 <b>Monthly Expenses:</b>
             </div>
 
             <div class="input-field col s4">
-                <select ref="mySelect">
-                    <option value="" disabled selected></option>
-                    <option value="1">Single</option>
-                    <option value="2">Married</option>
-                    <option value="3">Widowed</option>
-                    <option value="4">Divorced</option>
-                    <option value="5">Separated</option>
-                </select>
+
+                <input id="Expenses" type="text">
+
             </div>
         </div>
         <div class="divider"></div>
 
-        <!-- seveth row -->
+        <!-- nineth row -->
         <div class="row">
             <div class="col s3">
                 <b>Current Savings:</b>
             </div>
-            <div class="input-field col s9">
+            <div class="input-field col s3">
+                <input id="savings" type="text">
+            </div>
+            <div class="col s2">
+                <b>Loan History:</b>
+            </div>
+            <div class="input-field col s4">
                 <select>
                     <option value="" disabled selected></option>
-                    <option value="1">Rent</option>
-                    <option value="2">Own</option>
-                    <option value="3">Living in someone's home for free</option>
+                    <option value="1">All Loans paid</option>
+                    <option value="2">Existing Credits</option>
+                    <option value="3">No loan History</option>
+                    <option value="3">Loan Declined</option>
+
                 </select>
             </div>
         </div>
 
-        <!-- seveth row -->
+        <!-- tenth row -->
         <div class="row">
             <div class="col s3">
                 <b>Properties:</b>
@@ -202,8 +217,8 @@
         </div>
 
         <form action="/clients" method="get">
-            <button  class="btn-large waves-effect waves-light primary-color" type="submit">Add
-                <i class="material-icons left">add</i> 
+            <button class="btn-large waves-effect waves-light primary-color" type="submit">Add
+                <i class="material-icons left">add</i>
             </button>
         </form>
     </div>
@@ -319,6 +334,7 @@ export default {
     background-color: #757575;
     color: white;
 }
+
 form {
     margin: 2rem;
     text-align: center;

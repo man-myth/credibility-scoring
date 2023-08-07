@@ -15,7 +15,7 @@
     "jquery": "^3.7.0",
     "material-design-icons": "^3.0.1",
     "materialize-css": "^1.0.0-rc.2",
-    "node-sass": "^9.0.0",
+    "sass": "^1.64.2",
     "v-calendar": "^3.0.3",
     "vue": "^3.3.4",
     "vue-profile-avatar": "^1.2.0",

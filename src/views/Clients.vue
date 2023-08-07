@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 <tr class="modal-trigger" v-for="client in clients" @click="setClient(client)">
-                    <TableRow :client="client"></TableRow>
+                    <ClientRow :client="client"></ClientRow>
                 </tr>
             </tbody>
         </table>
@@ -30,14 +30,14 @@
 
 <script>
 import Header from '/src/components/Header.vue'
-import TableRow from '/src/components/TableRow.vue'
+import ClientRow from '/src/components/ClientRow.vue'
 import ClientDetails from '/src/components/ClientDetails.vue'
 import ClientDataService from "/src/services/ClientDataService";
 
 export default {
     components: {
         Header,
-        TableRow,
+        ClientRow,
         ClientDetails
     },
     data() {
@@ -52,7 +52,7 @@ export default {
         setClient(client){
             this.selectedClient = client;
             this.showDetails = true;
-            console.log(client);
+            // console.log(client);
           
         },
         showTable(){
