@@ -28,7 +28,7 @@
 
             </div>
             <div class="col m1 l1 center">
-                <div class="btn-floating btn-medium waves-effect waves-light">
+                <div class="btn-floating btn-medium waves-effect waves-light" @click="sortByName">
                     <i class="material-icons">sort_by_alpha</i>
                 </div>
 
@@ -44,7 +44,8 @@ export default {
     data() {
         return {
             containerClass: 'container-lg',
-            searchText: ""
+            searchText: "",
+            sortButtonClickCounter: 0,
         }
     },
     computed: {
@@ -62,6 +63,13 @@ export default {
     methods:{
         search(){
             this.$emit('search', this.searchText);
+        },
+        sortByName(){
+            this.sortButtonClickCounter++;
+            if(this.sortButtonClickCounter >= 3){
+                this.sortButtonClickCounter = 0;
+            }
+            this.$emit('sortByName', this.sortButtonClickCounter);
         }
     },
     mounted() {

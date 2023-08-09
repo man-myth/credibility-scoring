@@ -1,5 +1,5 @@
 <template>
-    <Header headerTitle="Clients" :count="countClients" icon="people" @search="search"></Header>
+    <Header headerTitle="Clients" :count="countClients" icon="people" @search="search" @sortByName="sortByName"></Header>
     <div class="divider"></div>
     <div v-if="showDetails">
         <ClientDetails :client="selectedClient" @close="showTable"></ClientDetails>
@@ -25,7 +25,6 @@
             </tbody>
         </table>
     </div>
-  
 </template>
 
 <script>
@@ -43,30 +42,43 @@ export default {
     data() {
         return {
             clients: [],
-            filteredClients:[],
-            selectedClient:{},
+            filteredClients: [],
+            selectedClient: {},
             showDetails: false,
         }
     },
 
     methods: {
-        setClient(client){
+        setClient(client) {
             this.selectedClient = client;
             this.showDetails = true;
             // console.log(client);
         },
-        search(searchText){
+        search(searchText) {
             this.filteredClients = this.clients.filter(c => {
-                return c.client_id.toString().includes(searchText)  || 
-                c.name.toLowerCase().includes(searchText.toLowerCase());
+                return c.client_id.toString().includes(searchText) ||
+                    c.name.toLowerCase().includes(searchText.toLowerCase());
             })
-            if(searchText == ""){
+            if (searchText == "") {
                 this.filteredClients = this.clients;
             }
         },
-        showTable(){
+        sortByName(counter) {
+            if (counter == 0) {
+                this.filteredClients = this.clients;
+            } else if (counter == 1) {
+                this.filteredClients = this.filteredClients.sort((a, b) => {
+                    return a.name.localeCompare(b.name);
+                })
+            } else if (counter == 2) {
+                this.filteredClients = this.filteredClients.sort((a, b) => {
+                    return b.name.localeCompare(a.name);
+                })
+            }
+        },
+        showTable() {
             this.showDetails = false;
-        },  
+        },
         getClients() {
             ClientDataService.getAll().then(response => {
                 this.clients = response.data;
@@ -95,7 +107,8 @@ export default {
 .divider {
     background-color: black;
 }
-.details-panel{
+
+.details-panel {
     display: flex;
     justify-content: center;
 }
