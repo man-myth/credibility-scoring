@@ -72,7 +72,7 @@ export default {
                 .then(res => {
                     this.loans = res.data;
                     this.cards[0][1] = res.data.filter((item) => item.loan_status === "Approved").length;
-                    this.cards[1][1] = res.data.filter((item) => item.loan_status === "Declined").length;
+                    this.cards[1][1] = res.data.filter((item) => item.loan_status === "Disapproved").length;
                     this.cards[2][1] = res.data.filter((item) => item.loan_status === "Pending").length;
                     this.countByType();
                     this.countByMonth();

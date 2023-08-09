@@ -1,46 +1,20 @@
-Main
-    Side Nav
-    Content Panel
+TODO:
 
-Side Nav
-    Profile
-    Dashboard
-    Clients
-    loans
-    Notifications
-    Settings
+1. add delete functionality
+    - add pop up to confirm
 
-Dashboard
-    Status card
-    Approved loans card
-    type of loans card
-    factors card
-    calendar card
+2. add edit functionality
+    - create a view
 
-Clients
-    Header
-    Content
-        Table
+3. make filters
 
-Loans
-    Header
-    Content
-        Table
+4. fix pictures to send to the server
+    - show pictures of clients
 
-Header(for clients and loans)
-    Search(text)
-    SearchBar
-    ClientsNum
-    AddClient
-    FilterClient
-    SortClient
+5. copy client components to loan
 
-New Client
-    Form
+6. show dynamic pie cahrt of factors
 
-New loan
-    form
+7. Notification system
 
-ClientDetails
-
-LoanDetails
+8. System Settings
