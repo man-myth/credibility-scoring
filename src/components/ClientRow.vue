@@ -16,7 +16,7 @@ export default {
     props: ['client'],
     methods: {
         countLoans() {
-            LoanDataService.getLoans(this.client.client_id)
+            LoanDataService.countLoans(this.client.client_id)
                 .then(res => {
                     this.loans = res.data.count;
                 })

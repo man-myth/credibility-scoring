@@ -8,9 +8,13 @@ class LoanDataService {
   getLoans(id){
     return http.get(`/loans/client/${id}`)
   }
+
+  countLoans(id){
+    return http.get(`/loans/count/${id}`)
+  }
   
   getLoansByType(type){
-    return http.get(`/loans/${type}`)
+    return http.get(`/loans/type/${type}`)
   }
 
 }

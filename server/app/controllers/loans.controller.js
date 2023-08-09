@@ -19,17 +19,41 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findLoansById = (req, res) => {
+exports.countLoans = (req, res) => {
   const id = req.params.id;
 
   Loans.findAndCountAll({
     where: {
       client_id: id,
-      loan_status: "Approved",
     },
   })
     .then((data) => {
       if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find loans with id=${id}.`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving loans with client id=" + id,
+      });
+    });
+};
+
+exports.findAllLoans = (req, res) => {
+  const id = req.params.id;
+
+  Loans.findAll({
+    where: {
+      client_id: id,
+    }
+  })
+    .then((data) => {
+      if (data) {
+        console.log(data)
         res.send(data);
       } else {
         res.status(404).send({

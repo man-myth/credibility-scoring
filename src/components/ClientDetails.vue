@@ -169,15 +169,15 @@ export default {
     props: ['client'],
     data(){
         return{
-            loans:{}
+            loans:{},
         }
     },
     methods: {
         showTable() {
             this.$emit('close')
         },
-        countLoans() {
-            LoanDataService.getAll()
+        getLoans() {
+            LoanDataService.getLoans(this.client.client_id)
                 .then(res => {
                     this.loans = res.data;
                     console.log(this.loans)
@@ -188,7 +188,7 @@ export default {
         }
     },
     mounted() {
-        this.countLoans();
+        this.getLoans();
         var elems = document.querySelectorAll('.materialboxed');
         M.Materialbox.init(elems);
         var opts = {

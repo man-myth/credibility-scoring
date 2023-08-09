@@ -5,8 +5,9 @@ module.exports = app => {
   
     // Create a new Tutorial
     router.get("/loans", loans.findAll);
-    router.get("/loans/client/:id", loans.findLoansById);
-    router.get("/loans/:type", loans.findLoansByType)
+    router.get("/loans/count/:id", loans.countLoans);
+    router.get("/loans/client/:id", loans.findAllLoans);
+    router.get("/loans/type/:type", loans.findLoansByType)
     
   
     // // Retrieve all Tutorials
