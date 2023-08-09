@@ -217,7 +217,7 @@
         </div>
 
         <form action="/clients" method="get">
-            <button class="btn-large waves-effect waves-light primary-color" type="submit">Add
+            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="submit">Add
                 <i class="material-icons left">add</i>
             </button>
         </form>
@@ -231,6 +231,11 @@ export default {
         return {
             properties: ['Car', 'Motorcycle', 'Real Estate / Home', 'Jewelry/Precious Metals', 'Stocks', 'Insurance Policy'],
             selectedProperties: []
+        }
+    },
+    computed:{
+        isFormInvalid(){
+            // return !this.components || !this.content
         }
     },
     methods: {

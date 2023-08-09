@@ -1,5 +1,5 @@
 <template>
-    <Header headerTitle="Clients" :count="countClients" icon="people"></Header>
+    <Header headerTitle="Clients" :count="countClients" icon="people" @search="search"></Header>
     <div class="divider"></div>
     <div v-if="showDetails">
         <ClientDetails :client="selectedClient" @close="showTable"></ClientDetails>
@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="modal-trigger" v-for="client in clients" @click="setClient(client)">
+                <tr class="modal-trigger" v-for="client in filteredClients" @click="setClient(client)">
                     <ClientRow :client="client"></ClientRow>
                 </tr>
             </tbody>
@@ -43,6 +43,7 @@ export default {
     data() {
         return {
             clients: [],
+            filteredClients:[],
             selectedClient:{},
             showDetails: false,
         }
@@ -53,7 +54,15 @@ export default {
             this.selectedClient = client;
             this.showDetails = true;
             // console.log(client);
-          
+        },
+        search(searchText){
+            this.filteredClients = this.clients.filter(c => {
+                return c.client_id.toString().includes(searchText)  || 
+                c.name.toLowerCase().includes(searchText.toLowerCase());
+            })
+            if(searchText == ""){
+                this.filteredClients = this.clients;
+            }
         },
         showTable(){
             this.showDetails = false;
@@ -61,6 +70,7 @@ export default {
         getClients() {
             ClientDataService.getAll().then(response => {
                 this.clients = response.data;
+                this.filteredClients = this.clients;
             })
                 .catch(e => {
                     console.log(e);

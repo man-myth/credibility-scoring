@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-content input-field">
                         <i class="material-icons prefix">search</i>
-                        <input type="text" id="search" placeholder="Search">
+                        <input type="text" id="search" placeholder="Search" v-model="searchText" @keyup="search">
                         
                     </div>
 
@@ -44,6 +44,7 @@ export default {
     data() {
         return {
             containerClass: 'container-lg',
+            searchText: ""
         }
     },
     computed: {
@@ -56,6 +57,11 @@ export default {
         },
         getLink() {
             return "/" + this.headerTitle.toLowerCase() + "-new"
+        }
+    },
+    methods:{
+        search(){
+            this.$emit('search', this.searchText);
         }
     },
     mounted() {
@@ -94,7 +100,7 @@ h4.flow-text {
     color: black;
 }
 .card{
-    background-color: #7f7b7b67;
+    background-color: #ffffff;
 }
 .card-content{
     padding:0 1.5rem 0 1.5rem ;
@@ -108,7 +114,7 @@ h4.flow-text {
     color: #000000;
 }
 .input-field .prefix{
-    color: #ffffff;
+    color: #7f7b7b67;
 }
 .title-count {
     display: flex;
