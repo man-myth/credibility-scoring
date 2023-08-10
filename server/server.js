@@ -32,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 require("./app/routes/client.routes")(app);
 require("./app/routes/loans.routes")(app);
+require("./app/routes/scores.routes")(app);
 
 
 // set port, listen for requests

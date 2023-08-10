@@ -7,18 +7,18 @@ const Op = db.Sequelize.Op;
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
   Client.findAll()
-  .then((data) => {
-    res.send(data);
-  })
-  .catch((err) => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while retrieving clients.",
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving clients.",
+      });
     });
-  });
 };
 
-exports.create = (req,res)=>{
+exports.create = (req, res) => {
   if (!req.body.name) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -48,12 +48,10 @@ exports.create = (req,res)=>{
     savings: req.body.savings,
     properties: req.body.properties
   };
-  console.log(client)
 
   // Save Tutorial in the database
   Client.create(client)
     .then(data => {
-      console.log("added new client")
       res.send(data);
     })
     .catch(err => {
@@ -66,16 +64,38 @@ exports.create = (req,res)=>{
 
 
 // Find a single Tutorial with an id
-exports.findOne = (req, res) => {};
+exports.findOne = (req, res) => { };
 
 // Update a Tutorial by the id in the request
-exports.update = (req, res) => {};
+exports.update = (req, res) => { };
 
-// Delete a Tutorial with the specified id in the request
-exports.delete = (req, res) => {};
+exports.delete = (req, res) => {
+  const id = req.params.id;
+
+  Client.destroy({
+    where: { client_id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Tutorial was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Client with id=${id}. Maybe Tutorial was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Client with id=" + id,
+        error: err
+      });
+    });
+};
 
 // Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {};
+exports.deleteAll = (req, res) => { };
 
 // Find all published Tutorials
-exports.findAllPublished = (req, res) => {};
+exports.findAllPublished = (req, res) => { };

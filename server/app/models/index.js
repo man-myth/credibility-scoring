@@ -22,4 +22,6 @@ db.sequelize = sequelize;
 
 db.clients = require("./clients.model.js")(sequelize, Sequelize);
 db.loans = require("./loans.model.js")(sequelize, Sequelize);
+db.scores = require("./scores.model.js")(sequelize, Sequelize);
+
 module.exports = db;
