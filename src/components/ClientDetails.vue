@@ -1,9 +1,27 @@
 <template>
     <div class="card main">
         <div class="row right">
-            <a class="waves-effect waves-green btn-floating"><i class="material-icons large">edit</i></a>
+            <a class="waves-effect waves-green btn-floating modal-trigger" data-target="confirmationModal"><i
+                    class="material-icons large">delete_forever</i></a>
+            <router-link to='/clients-edit' :client="client" class="waves-effect waves-green btn-floating" @click="showTable">
+                <i class="material-icons large">edit</i>
+                </router-link>
             <a class="waves-effect waves-green btn-floating" @click="showTable"><i
                     class="material-icons large">close</i></a>
+        </div>
+        <!-- Modal Structure -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <h4 class="center">Are you sure you want to delete this entry?</h4>
+                <p>Client Id : {{ client.client_id }}</p>
+                <p>Client Name : {{ client.name }}</p>
+                <p>Birthday: {{ client.birthday }}</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/clients" class="modal-close waves-effect waves-green btn-flat" @click="deleteEntry">Yes</a>
+                <a class="modal-close waves-effect waves-green btn-flat">No</a>
+
+            </div>
         </div>
         <div class="row">
             <div class="col s7">
@@ -118,7 +136,8 @@
             <div class="col s5 ">
                 <div class="row center-align">
                     <div class="image-container col s12">
-                        <ProfileAvatar username="j" class="materialboxed" customSize="150px" image="src/assets/images/profile-pic.jpeg">
+                        <ProfileAvatar username="j" class="materialboxed" customSize="150px"
+                            image="src/assets/images/profile-pic.jpeg">
                         </ProfileAvatar>
                     </div>
                     <div class="col s12">Credit Score:{{ client.credit_score }}</div>
@@ -145,7 +164,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="modal-trigger" v-for="loan in loans" >
+                    <tr class="modal-trigger" v-for="loan in loans">
                         <LoanRow :loan="loan"></LoanRow>
                     </tr>
                 </tbody>
@@ -159,20 +178,29 @@
 import ProfileAvatar from 'vue-profile-avatar';
 import '../assets/js/gauge.min.js';
 import LoanRow from '/src/components/LoanRow.vue'
+import EditClient from '/src/components/EditClient.vue'
 import LoanDataService from "/src/services/LoanDataService";
+import ClientDataService from "/src/services/ClientDataService";
 
 export default {
     components: {
         ProfileAvatar,
         LoanRow,
+        EditClient
     },
     props: ['client'],
-    data(){
-        return{
-            loans:{},
+    data() {
+        return {
+            loans: {},
         }
     },
     methods: {
+        deleteEntry() {
+            ClientDataService.delete(this.client.client_id)
+                .catch(e => {
+                    console.log(e);
+                })
+        },
         showTable() {
             this.$emit('close')
         },
@@ -189,8 +217,11 @@ export default {
     },
     mounted() {
         this.getLoans();
-        var elems = document.querySelectorAll('.materialboxed');
-        M.Materialbox.init(elems);
+        var materialBox = document.querySelectorAll('.materialboxed');
+        M.Materialbox.init(materialBox);
+        var modal = document.querySelectorAll('.modal');
+        M.Modal.init(modal);
+
         var opts = {
             angle: -0.20, // The span of the gauge arc
             lineWidth: 0.20, // The line thickness
@@ -256,4 +287,20 @@ table {
 .image-container {
     display: flex;
     justify-content: center;
+
+}
+
+div#confirmationModal {
+    width: 40vw;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content p {
+    font-weight: normal;
 }</style>

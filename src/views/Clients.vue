@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="modal-trigger" v-for="client in filteredClients" @click="setClient(client)">
+                <tr v-for="client in filteredClients" @click="setClient(client)">
                     <ClientRow :client="client"></ClientRow>
                 </tr>
             </tbody>
@@ -96,8 +96,8 @@ export default {
     },
     mounted() {
         this.getClients();
-        var elems = document.querySelectorAll('.modal');
-        M.Modal.init(elems);
+        // var elems = document.querySelectorAll('.modal');
+        // M.Modal.init(elems);
 
     }
 }

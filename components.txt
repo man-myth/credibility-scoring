@@ -1,8 +1,5 @@
 TODO:
-
-1. add delete functionality
-    - add pop up to confirm
-
+no router link inside compnents
 2. add edit functionality
     - create a view
 
@@ -13,7 +10,7 @@ TODO:
 
 5. copy client components to loan
 
-6. show dynamic pie cahrt of factors
+6. show scorecard
 
 7. Notification system
 

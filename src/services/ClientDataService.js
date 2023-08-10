@@ -17,9 +17,9 @@ class ClientDataService {
   //   return http.put(`/tutorials/${id}`, data);
   // }
 
-  // delete(id) {
-  //   return http.delete(`/tutorials/${id}`);
-  // }
+  delete(id) {
+    return http.delete(`/clients/${id}`);
+  }
 
   // deleteAll() {
   //   return http.delete(`/tutorials`);

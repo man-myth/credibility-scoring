@@ -5,7 +5,7 @@
             <router-link to='/clients' class="btn-floating btn-meduim waves-effect waves-light">
                 <i class="material-icons">arrow_back</i>
             </router-link>
-            <h4>New Client</h4>
+            <h4>Edit Client</h4>
         </div>
 
         <!-- First Row -->
@@ -224,8 +224,8 @@
 
         <form action="/clients" method="get">
         <!-- <form > -->
-            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="submit" @click="submitForm">Add
-                <i class="material-icons left">add</i>
+            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="submit" @click="submitForm">Edit
+                <i class="material-icons left">edit</i>
             </button>
         </form>
     </div>
@@ -235,29 +235,29 @@
 import ClientDataService from "/src/services/ClientDataService";
 
 export default {
-
+    props:['client'],
     data() {
         return {
             properties: ['Car', 'Motorcycle', 'Real Estate / Home', 'Jewelry/Precious Metals', 'Stocks', 'Insurance Policy'],
-            selectedProperties: [],
-            name: null,
-            picture: "/test",
-            address: null,
-            gender: null,
-            birthday: null,
-            contact: null,
-            credit_score: 600,
-            marital_status: null,
-            dependents: null,
-            education: null,
-            housing: null,
-            years_residence: null,
-            employment: null,
-            industry: null,
-            loan_history: null,
-            income: null,
-            expenses: null,
-            savings: null,
+            // selectedProperties: this.client.properties,
+            name: this.client.name,
+            picture: this.client.picture,
+            address: this.client.address,
+            gender: this.client.gender,
+            birthday: this.client.birthday,
+            contact: this.client.contact,
+            credit_score: this.client.score,
+            marital_status: this.client.marital_status,
+            dependents: this.client.dependents,
+            education: this.client.education,
+            housing: this.client.housing,
+            years_residence: this.client.years_residence,
+            employment: this.client.employment,
+            industry: this.client.industry,
+            loan_history: this.client.loan_history,
+            income: this.client.income,
+            expenses: this.client.expenses,
+            savings: this.client.savings,
         }
     },
     computed: {
@@ -283,10 +283,7 @@ export default {
     },
     methods: {
         addProperty(c) {
-            console.log(this.birthday)
-            console.log(this.selectedProperties)
             var element = document.getElementById(c)
-
             if (this.selectedProperties.includes(c)) {
                 this.selectedProperties.pop(c)
                 element.className = "chip";
@@ -338,11 +335,10 @@ export default {
 
     mounted() {
         var datePicker = document.querySelectorAll('.datepicker');
-        M.Datepicker.init(datePicker);
+        var birthday = M.Datepicker.init(datePicker);
+        birthday.set(this.client.birthday);
         var select = document.querySelectorAll('select');
         M.FormSelect.init(select);
-
-
     },
 
     beforeUnmount() {

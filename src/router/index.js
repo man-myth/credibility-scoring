@@ -6,6 +6,7 @@ import NewClient from '../views/NewClient.vue'
 import NewLoan from '../views/NewLoan.vue'
 import Settings from '../views/Settings.vue'
 import Notifications from '../views/Notifications.vue'
+import EditClient from '../components/EditClient.vue'
 
 const routes = [
   {
@@ -27,6 +28,11 @@ const routes = [
     path: '/clients-new',
     name: 'NewClient',
     component: NewClient
+  },
+  {
+    path: '/clients-edit',
+    name: 'EditClient',
+    component: EditClient
   },
   {
     path: '/loans-new',
