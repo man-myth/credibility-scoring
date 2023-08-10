@@ -1,7 +1,4 @@
 TODO:
-no router link inside compnents
-2. add edit functionality
-    - create a view
 
 3. make filters
 

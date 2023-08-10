@@ -32,7 +32,8 @@ const routes = [
   {
     path: '/clients-edit',
     name: 'EditClient',
-    component: EditClient
+    component: EditClient,
+    props: true
   },
   {
     path: '/loans-new',
