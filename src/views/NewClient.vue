@@ -233,6 +233,8 @@
 
 <script>
 import ClientDataService from "/src/services/ClientDataService";
+import ScoreDataService from "/src/services/ScoreDataService"
+import computeScore from "/src/assets/js/computeCreditScore.js"
 
 export default {
 
@@ -282,6 +284,19 @@ export default {
         }
     },
     methods: {
+        computeCreditScore(){
+            
+            ScoreDataService.getAll()
+            .then(res=>{
+                var scorecard = res.data;
+                var score = computeScore(scorecard, this.birthday, this.sex, this.dependents, this.education, this.housing, this.residence, this.employment, this.industry, this.income, this.savings, this.insurance);
+                console.log(res.data)
+                return score;
+     
+            });
+
+           
+        },
         addProperty(c) {
             console.log(this.birthday)
             console.log(this.selectedProperties)
@@ -337,6 +352,7 @@ export default {
 
 
     mounted() {
+        this.computeCreditScore();
         var datePicker = document.querySelectorAll('.datepicker');
         M.Datepicker.init(datePicker);
         var select = document.querySelectorAll('select');
