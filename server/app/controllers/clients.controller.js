@@ -64,10 +64,50 @@ exports.create = (req, res) => {
 
 
 // Find a single Tutorial with an id
-exports.findOne = (req, res) => { };
+exports.findOne = (req, res) => {
+  const id = req.params.id;
 
-// Update a Tutorial by the id in the request
-exports.update = (req, res) => { };
+  Client.findByPk(id)
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find Client with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Client with id=" + id
+      });
+    });
+};
+
+// Update a Client by the id in the request
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  Client.update(req.body, {
+    where: { client_id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Client was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update Client with id=${id}. Maybe Client was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Client with id=" + id
+      });
+    });
+ };
 
 exports.delete = (req, res) => {
   const id = req.params.id;

@@ -3,7 +3,7 @@
         <div class="row right">
             <a class="waves-effect waves-green btn-floating modal-trigger" data-target="confirmationModal"><i
                     class="material-icons large">delete_forever</i></a>
-            <router-link to='/clients-edit' :client="client" class="waves-effect waves-green btn-floating" @click="showTable">
+            <router-link :to="{name:'EditClient', query:{client:client.client_id}}"  class="waves-effect waves-green btn-floating" @click="showTable">
                 <i class="material-icons large">edit</i>
                 </router-link>
             <a class="waves-effect waves-green btn-floating" @click="showTable"><i
@@ -192,7 +192,7 @@ export default {
     data() {
         return {
             loans: {},
-        }
+                }
     },
     methods: {
         deleteEntry() {
@@ -208,7 +208,7 @@ export default {
             LoanDataService.getLoans(this.client.client_id)
                 .then(res => {
                     this.loans = res.data;
-                    console.log(this.loans)
+                    // console.log(this.loans)
                 })
                 .catch(e => {
                     console.log(e);

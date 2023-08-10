@@ -15,7 +15,7 @@
                 <b> Name:</b>
             </div>
             <div class="input-field col s4">
-                <input id="name" type="text" v-model="name">
+                <input id="name" type="text" v-model="this.client.name">
             </div>
             <div class="col s2 right-align">
                 <b> Picture:</b>
@@ -30,7 +30,7 @@
                 <b>Birthday:</b>
             </div>
             <div class="input-field col s3">
-                <input id="birthdate" type="text" class="datepicker" v-model="birthday" @change="setBirthday">
+                <input id="birthdate" type="text" class="datepicker" v-model="this.client.birthday" @change="setBirthday">
             </div>
             <div class="col s1"></div>
             <div class="col s2">
@@ -38,8 +38,7 @@
             </div>
 
             <div class="input-field col s4">
-                <select v-model="marital_status">
-                    <option value="" disabled selected></option>
+                <select v-model="this.client.marital_status">
                     <option value="Single">Single</option>
                     <option value="Married">Married</option>
                     <option value="Widowed">Widowed</option>
@@ -55,13 +54,13 @@
                 <b>Dependents:</b>
             </div>
             <div class="input-field col s3">
-                <input id="name" type="number" v-model="dependents" pattern="?[0-9]*" >
+                <input id="name" type="number" v-model="client.dependents" pattern="?[0-9]*">
             </div>
             <div class="col s1">
                 <b>Sex:</b>
             </div>
             <div class="input-field col s2">
-                <select v-model="gender">
+                <select v-model="this.client.gender">
                     <option value="" disabled selected></option>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
@@ -71,7 +70,7 @@
                 <b>Contact:</b>
             </div>
             <div class="input-field col s3">
-                <input id="contact" type="text" v-model="contact">
+                <input id="contact" type="text" v-model="this.client.contact">
             </div>
         </div>
         <div class="divider"></div>
@@ -81,7 +80,7 @@
                 <b> Address:</b>
             </div>
             <div class="input-field col s10">
-                <input id="name" type="text" v-model="address">
+                <input id="name" type="text" v-model="client.address">
             </div>
         </div>
         <!-- fifth row -->
@@ -90,7 +89,7 @@
                 <b>Housing:</b>
             </div>
             <div class="input-field col s3">
-                <select v-model="housing">
+                <select v-model="client.housing">
                     <option value="" disabled selected></option>
                     <option value="Rent">Rent</option>
                     <option value="Own">Own</option>
@@ -101,7 +100,7 @@
                 <b>Years in Residence:</b>
             </div>
             <div class="input-field col s4">
-                <input id="contact" type="number" v-model="years_residence" pattern="?[0-9]*">
+                <input id="contact" type="number" v-model="client.years_residence" pattern="?[0-9]*">
             </div>
         </div>
         <div class="divider"></div>
@@ -112,7 +111,7 @@
                 <b>Employment Status:</b>
             </div>
             <div class="input-field col s4">
-                <select v-model="employment">
+                <select v-model="client.employment">
                     <option value="" disabled selected></option>
                     <option value="Employed full-time">Fulltime</option>
                     <option value="Employed part-time">Parttime</option>
@@ -124,7 +123,7 @@
                 <b>Education:</b>
             </div>
             <div class="input-field col s4">
-                <select v-model="education">
+                <select v-model="client.education">
                     <option value="" disabled selected></option>
                     <option value="Gradeschool">Gradeschool</option>
                     <option value="High School">Highschool</option>
@@ -140,7 +139,7 @@
                 <b>Job Industry:</b>
             </div>
             <div class="input-field col s10">
-                <select v-model="industry">
+                <select v-model="client.industry">
                     <option value="" disabled selected></option>
                     <option value="Information Technology and Software Development">Information Technology and Software
                         Development</option>
@@ -175,7 +174,7 @@
                 <b>Income:</b>
             </div>
             <div class="input-field col s3">
-                <input id="Income" type="number" v-model="income">
+                <input id="Income" type="number" v-model="client.income">
             </div>
             <div class="col s3">
                 <b>Monthly Expenses:</b>
@@ -183,7 +182,7 @@
 
             <div class="input-field col s4">
 
-                <input id="Expenses" type="number" v-model="expenses">
+                <input id="Expenses" type="number" v-model="client.expenses">
 
             </div>
         </div>
@@ -195,13 +194,13 @@
                 <b>Current Savings:</b>
             </div>
             <div class="input-field col s3">
-                <input id="savings" type="number" v-model="savings">
+                <input id="savings" type="number" v-model="client.savings">
             </div>
             <div class="col s2">
                 <b>Loan History:</b>
             </div>
             <div class="input-field col s4">
-                <select v-model="loan_history">
+                <select v-model="client.loan_history">
                     <option value="" disabled selected></option>
                     <option value="All credits paid back duly">All Loans paid</option>
                     <option value="Existing Credits">Existing Credits</option>
@@ -223,8 +222,9 @@
         </div>
 
         <form action="/clients" method="get">
-        <!-- <form > -->
-            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="submit" @click="submitForm">Edit
+            <!-- <form > -->
+            <button  class="btn-large waves-effect waves-light primary-color" type="submit"
+                @click="submitForm">Edit
                 <i class="material-icons left">edit</i>
             </button>
         </form>
@@ -235,53 +235,53 @@
 import ClientDataService from "/src/services/ClientDataService";
 
 export default {
-    props:['client'],
     data() {
         return {
+            client: {},
             properties: ['Car', 'Motorcycle', 'Real Estate / Home', 'Jewelry/Precious Metals', 'Stocks', 'Insurance Policy'],
-            // selectedProperties: this.client.properties,
-            name: this.client.name,
-            picture: this.client.picture,
-            address: this.client.address,
-            gender: this.client.gender,
-            birthday: this.client.birthday,
-            contact: this.client.contact,
-            credit_score: this.client.score,
-            marital_status: this.client.marital_status,
-            dependents: this.client.dependents,
-            education: this.client.education,
-            housing: this.client.housing,
-            years_residence: this.client.years_residence,
-            employment: this.client.employment,
-            industry: this.client.industry,
-            loan_history: this.client.loan_history,
-            income: this.client.income,
-            expenses: this.client.expenses,
-            savings: this.client.savings,
+            selectedProperties: [],
         }
     },
     computed: {
-        isFormInvalid() {
-            return !this.name ||
-                !this.picture ||
-                !this.address ||
-                !this.gender ||
-                !this.birthday ||
-                !this.contact ||
-                !this.marital_status ||
-                !this.dependents ||
-                !this.education ||
-                !this.housing ||
-                !this.years_residence ||
-                !this.employment ||
-                !this.industry ||
-                !this.loan_history ||
-                !this.income ||
-                !this.expenses ||
-                !this.savings;
-        }
+        // isFormInvalid() {
+        //     return !this.client.name ||
+        //         !this.client.picture ||
+        //         !this.client.address ||
+        //         !this.client.gender ||
+        //         !this.client.birthday ||
+        //         !this.client.contact ||
+        //         !this.client.marital_status ||
+        //         this.client.dependents>0 ||
+        //         !this.client.education ||
+        //         !this.client.housing ||
+        //         !this.client.years_residence ||
+        //         !this.client.employment ||
+        //         !this.client.industry ||
+        //         !this.client.loan_history ||
+        //         !this.client.income ||
+        //         !this.client.expenses ||
+        //         !this.client.savings;
+        // }
     },
     methods: {
+        getClient() {
+            ClientDataService.get(this.$route.query.client).then(response => {
+                var select = document.querySelectorAll('select');
+                M.FormSelect.init(select);
+
+                this.client = response.data;
+                this.selectedProperties = JSON.parse(this.client.properties)
+                var datePicker = document.querySelectorAll('.datepicker');
+                M.Datepicker.init(datePicker);
+
+                M.FormSelect.init(select);
+
+                
+            })
+                .catch(e => {
+                    console.log(e);
+                })
+        },
         addProperty(c) {
             var element = document.getElementById(c)
             if (this.selectedProperties.includes(c)) {
@@ -296,33 +296,33 @@ export default {
             const file = this.$refs.fileInput.files[0];
             console.log(file);
         },
-        setBirthday(event){
+        setBirthday(event) {
             this.birthday = event.target.value;
         },
         submitForm() {
             var data = {
-                name: this.name,
-                picture: this.picture,
-                address: this.address,
-                gender: this.gender,
-                birthday: this.birthday,
-                contact: this.contact,
+                name: this.client.name,
+                picture: this.client.picture,
+                address: this.client.address,
+                gender: this.client.gender,
+                birthday: this.client.birthday,
+                contact: this.client.contact,
                 credit_score: this.credit_score,
                 marital_status: this.marital_status,
-                dependents: this.dependents,
-                education: this.education,
-                housing: this.housing,
-                years_residence: this.years_residence,
-                employment: this.employment,
-                industry: this.industry,
+                dependents: this.client.dependents,
+                education: this.client.education,
+                housing: this.client.housing,
+                years_residence: this.client.years_residence,
+                employment: this.client.employment,
+                industry: this.client.industry,
                 loan_history: this.loan_history,
-                income: this.income,
-                expenses: this.expenses,
-                savings: this.savings,
+                income: this.client.income,
+                expenses: this.client.expenses,
+                savings: this.client.savings,
                 properties: JSON.stringify(this.selectedProperties),
             };
 
-            ClientDataService.create(data)
+            ClientDataService.update(this.client.client_id, data)
                 .then(response => {
                     console.log(response.data);
                 })
@@ -330,17 +330,12 @@ export default {
                     console.log(e);
                 });
         }
+    }, created() {
+        
     },
-
-
     mounted() {
-        var datePicker = document.querySelectorAll('.datepicker');
-        var birthday = M.Datepicker.init(datePicker);
-        birthday.set(this.client.birthday);
-        var select = document.querySelectorAll('select');
-        M.FormSelect.init(select);
+        this.getClient();
     },
-
     beforeUnmount() {
         var select = document.querySelectorAll('select');
         select.forEach((s) => { M.FormSelect.getInstance(s).destroy() })
