@@ -5,5 +5,5 @@ module.exports = app => {
   
     // get all client
     router.get("/scores", scores.findAll);
-  
+    app.use('/api', router);
   };

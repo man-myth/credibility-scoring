@@ -1,11 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
-    const scores = sequelize.define("scores", {
+    const scores = sequelize.define("scorecards", {
       feature_name: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         primaryKey: true
       },
       score: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
 
     });
