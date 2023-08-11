@@ -5,6 +5,7 @@ module.exports = app => {
   
     // get all client
     router.get("/clients", clients.findAll);
+
   // Create a new Client
     router.post("/clients", clients.create);
 
@@ -20,9 +21,6 @@ module.exports = app => {
   
     // // Delete a Tutorial with id
     router.delete("/clients/:id", clients.delete);
-  
-    // // Delete all Tutorials
-    // router.delete("/", clients.deleteAll);
   
     app.use('/api', router);
   };

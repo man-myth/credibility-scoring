@@ -17,6 +17,16 @@ class LoanDataService {
     return http.get(`/loans/type/${type}`)
   }
 
+  delete(id) {
+    return http.delete(`/loans/${id}`);
+  }
+  create(data) {
+    return http.post("/loans", data);
+  }
+
+  update(id, data) {
+    return http.put(`/loans/${id}`, data);
+  }
 }
 
 export default new LoanDataService();

@@ -23,5 +23,7 @@ db.sequelize = sequelize;
 db.clients = require("./clients.model.js")(sequelize, Sequelize);
 db.loans = require("./loans.model.js")(sequelize, Sequelize);
 db.scores = require("./scores.model.js")(sequelize, Sequelize);
+// db.clients.hasMany(db.loans);
+// db.loans.belongsTo(db.clients, {foreignKey: 'client_id'});  
 
 module.exports = db;

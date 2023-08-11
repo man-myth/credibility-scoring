@@ -87,8 +87,6 @@ export default {
         window.addEventListener('resize', this.updateContainerClass);
         var elems = document.querySelectorAll('.dropdown-trigger');
         M.Dropdown.init(elems);
-
-        
     }
 }
 </script>

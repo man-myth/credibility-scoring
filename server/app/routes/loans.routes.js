@@ -8,8 +8,9 @@ module.exports = app => {
     router.get("/loans/count/:id", loans.countLoans);
     router.get("/loans/client/:id", loans.findAllLoans);
     router.get("/loans/type/:type", loans.findLoansByType)
-    
-  
+    router.delete("/loans/:id", loans.delete);
+    router.post("/loans", loans.create);
+    router.put("/loans/:id", loans.update);
     // // Retrieve all Tutorials
     // router.get("/", clients.findAll);
   

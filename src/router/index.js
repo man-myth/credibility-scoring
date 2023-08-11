@@ -7,6 +7,8 @@ import NewLoan from '../views/NewLoan.vue'
 import Settings from '../views/Settings.vue'
 import Notifications from '../views/Notifications.vue'
 import EditClient from '../components/EditClient.vue'
+import EditLoan from '../components/EditLoan.vue'
+
 
 const routes = [
   {
@@ -33,6 +35,12 @@ const routes = [
     path: '/clients-edit',
     name: 'EditClient',
     component: EditClient,
+    props: true
+  },
+  {
+    path: '/loans-edit',
+    name: 'EditLoan',
+    component: EditLoan,
     props: true
   },
   {

@@ -12,3 +12,7 @@ TODO:
 7. Notification system
 
 8. System Settings
+
+fix bug{
+    convert name to client id
+}

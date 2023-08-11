@@ -3,7 +3,7 @@
         <div class="row right">
             <a class="waves-effect waves-green btn-floating modal-trigger" data-target="confirmationModal"><i
                     class="material-icons large">delete_forever</i></a>
-            <router-link :to="{name:'EditClient', query:{client:client.client_id}}"  class="waves-effect waves-green btn-floating" @click="showTable">
+            <router-link :to="{name:'EditLoan', query:{loan:loan.loan_id}}"  class="waves-effect waves-green btn-floating" @click="showTable">
                 <i class="material-icons large">edit</i>
                 </router-link>
             <a class="waves-effect waves-green btn-floating" @click="showTable"><i
@@ -13,9 +13,9 @@
         <div id="confirmationModal" class="modal">
             <div class="modal-content">
                 <h4 class="center">Are you sure you want to delete this entry?</h4>
-                <p>Client Id : {{ client.client_id }}</p>
+                <p>Loan ID : {{ loan.loan_id}}</p>
                 <p>Client Name : {{ client.name }}</p>
-                <p>Birthday: {{ client.birthday }}</p>
+                <p>Loan Amount: {{ loan.loan_amount   }}</p>
             </div>
             <div class="modal-footer">
                 <a href="/clients" class="modal-close waves-effect waves-green btn-flat" @click="deleteEntry">Yes</a>
@@ -147,29 +147,8 @@
                 </div>
             </div>
         </div>
-        <div class="divider"></div>
-
-        <div class="row">
-            <table class="highlight">
-                <thead>
-                    <tr>
-                        <th>LOAN ID</th>
-                        <th>LOAN TYPE</th>
-                        <th>PURPOSE</th>
-                        <th>AMOUNT</th>
-                        <th>APPLICATION DATE</th>
-                        <th>DURATION</th>
-                        <th>VALIDATED BY</th>
-                        <th>LOAN STATUS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="modal-trigger" v-for="loan in loans">
-                        <LoanRow :loan="loan"></LoanRow>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        
+       
 
     </div>
 </template>
@@ -188,15 +167,15 @@ export default {
         LoanRow,
         EditClient
     },
-    props: ['client'],
+    props: ['loan'],
     data() {
         return {
-            loans: {},
+            client: {},
                 }
     },
     methods: {
         deleteEntry() {
-            ClientDataService.delete(this.client.client_id)
+            LoanDataService.delete(this.loan.loan_id)
                 .catch(e => {
                     console.log(e);
                 })
@@ -204,19 +183,20 @@ export default {
         showTable() {
             this.$emit('close')
         },
-        getLoans() {
-            LoanDataService.getLoans(this.client.client_id)
+        getClient() {
+            ClientDataService.get(this.loan.client_id)
                 .then(res => {
-                    this.loans = res.data;
+                    this.client = res.data;
                     // console.log(this.loans)
                 })
                 .catch(e => {
                     console.log(e);
                 })
         }
+
     },
     mounted() {
-        this.getLoans();
+        this.getClient();
         var materialBox = document.querySelectorAll('.materialboxed');
         M.Materialbox.init(materialBox);
         var modal = document.querySelectorAll('.modal');

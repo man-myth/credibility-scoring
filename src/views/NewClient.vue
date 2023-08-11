@@ -33,7 +33,7 @@
                 <input id="birthdate" type="text" class="datepicker" v-model="birthday" @change="setBirthday">
             </div>
             <div class="col s1"></div>
-            <div class="col s2">
+            <div class="col s2 right-align">
                 <b>Marital Status:</b>
             </div>
 
@@ -57,7 +57,7 @@
             <div class="input-field col s3">
                 <input id="name" type="number" v-model="dependents" pattern="?[0-9]*" >
             </div>
-            <div class="col s1">
+            <div class="col s1 right-align">
                 <b>Sex:</b>
             </div>
             <div class="input-field col s2">
@@ -97,7 +97,7 @@
                     <option value="Free">Living in someone's home for free</option>
                 </select>
             </div>
-            <div class="col s3">
+            <div class="col s3 right-align">
                 <b>Years in Residence:</b>
             </div>
             <div class="input-field col s4">
@@ -120,7 +120,7 @@
                     <option value="Unemployed">Unemployed</option>
                 </select>
             </div>
-            <div class="col s2">
+            <div class="col s2 right-align">
                 <b>Education:</b>
             </div>
             <div class="input-field col s4">
@@ -177,7 +177,7 @@
             <div class="input-field col s3">
                 <input id="Income" type="number" v-model="income">
             </div>
-            <div class="col s3">
+            <div class="col s3 right-align">
                 <b>Monthly Expenses:</b>
             </div>
 
@@ -197,7 +197,7 @@
             <div class="input-field col s3">
                 <input id="savings" type="number" v-model="savings">
             </div>
-            <div class="col s2">
+            <div class="col s2 right-align">
                 <b>Loan History:</b>
             </div>
             <div class="input-field col s4">

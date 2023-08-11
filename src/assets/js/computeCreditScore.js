@@ -1,11 +1,4 @@
 import { get } from "jquery";
-import ScoreDataService from "/src/services/ScoreDataService"
-
-ScoreDataService.getAll()
-.then(res=>{
-    console.log(res)
-});
-
 
 
 export default function compute(scorecard, birthday, sex, dependents, education, housing, residence, employment, industry, income, savings, insurance ){

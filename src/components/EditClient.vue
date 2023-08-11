@@ -33,12 +33,12 @@
                 <input id="birthdate" type="text" class="datepicker" v-model="this.client.birthday" @change="setBirthday">
             </div>
             <div class="col s1"></div>
-            <div class="col s2">
+            <div class="col s2 right-align">
                 <b>Marital Status:</b>
             </div>
 
             <div class="input-field col s4">
-                <select v-model="this.client.marital_status">
+                <select v-model="this.client.marital_status" class="browser-default">
                     <option value="Single">Single</option>
                     <option value="Married">Married</option>
                     <option value="Widowed">Widowed</option>
@@ -56,11 +56,11 @@
             <div class="input-field col s3">
                 <input id="name" type="number" v-model="client.dependents" pattern="?[0-9]*">
             </div>
-            <div class="col s1">
+            <div class="col s1 right-align">
                 <b>Sex:</b>
             </div>
             <div class="input-field col s2">
-                <select v-model="this.client.gender">
+                <select v-model="this.client.gender" class="browser-default">
                     <option value="" disabled selected></option>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
@@ -89,14 +89,14 @@
                 <b>Housing:</b>
             </div>
             <div class="input-field col s3">
-                <select v-model="client.housing">
+                <select v-model="client.housing" class="browser-default">
                     <option value="" disabled selected></option>
                     <option value="Rent">Rent</option>
                     <option value="Own">Own</option>
                     <option value="Free">Living in someone's home for free</option>
                 </select>
             </div>
-            <div class="col s3">
+            <div class="col s3 right-align">
                 <b>Years in Residence:</b>
             </div>
             <div class="input-field col s4">
@@ -111,7 +111,7 @@
                 <b>Employment Status:</b>
             </div>
             <div class="input-field col s4">
-                <select v-model="client.employment">
+                <select v-model="client.employment" class="browser-default">
                     <option value="" disabled selected></option>
                     <option value="Employed full-time">Fulltime</option>
                     <option value="Employed part-time">Parttime</option>
@@ -119,11 +119,11 @@
                     <option value="Unemployed">Unemployed</option>
                 </select>
             </div>
-            <div class="col s2">
+            <div class="col s2 right-align">
                 <b>Education:</b>
             </div>
             <div class="input-field col s4">
-                <select v-model="client.education">
+                <select v-model="client.education" class="browser-default">
                     <option value="" disabled selected></option>
                     <option value="Gradeschool">Gradeschool</option>
                     <option value="High School">Highschool</option>
@@ -139,7 +139,7 @@
                 <b>Job Industry:</b>
             </div>
             <div class="input-field col s10">
-                <select v-model="client.industry">
+                <select v-model="client.industry" class="browser-default">
                     <option value="" disabled selected></option>
                     <option value="Information Technology and Software Development">Information Technology and Software
                         Development</option>
@@ -176,7 +176,7 @@
             <div class="input-field col s3">
                 <input id="Income" type="number" v-model="client.income">
             </div>
-            <div class="col s3">
+            <div class="col s3 right-align">
                 <b>Monthly Expenses:</b>
             </div>
 
@@ -196,11 +196,11 @@
             <div class="input-field col s3">
                 <input id="savings" type="number" v-model="client.savings">
             </div>
-            <div class="col s2">
+            <div class="col s2 right-align">
                 <b>Loan History:</b>
             </div>
             <div class="input-field col s4">
-                <select v-model="client.loan_history">
+                <select v-model="client.loan_history" class="browser-default">
                     <option value="" disabled selected></option>
                     <option value="All credits paid back duly">All Loans paid</option>
                     <option value="Existing Credits">Existing Credits</option>
@@ -337,8 +337,8 @@ export default {
         this.getClient();
     },
     beforeUnmount() {
-        var select = document.querySelectorAll('select');
-        select.forEach((s) => { M.FormSelect.getInstance(s).destroy() })
+        // var select = document.querySelectorAll('select');
+        // select.forEach((s) => { M.FormSelect.getInstance(s).destroy() })
     }
 }
 </script>
@@ -375,8 +375,20 @@ export default {
 }
 
 .input-field {
-    margin: auto;
+    /* margin: auto; */
+    /* background-color: #ffffff; */
+    border-radius: 48px;
+    margin:3px;
 }
+.browser-default{
+    background-color: #E8E8E8;
+    border: none;
+    border-bottom: 1px #9e9e9e solid ;
+}
+input{
+    padding: 20px;
+}
+
 
 .top-container {
     display: flex;
