@@ -18,7 +18,7 @@
                 <p>Loan Amount: {{ loan.loan_amount   }}</p>
             </div>
             <div class="modal-footer">
-                <a href="/clients" class="modal-close waves-effect waves-green btn-flat" @click="deleteEntry">Yes</a>
+                <a href="/loans" class="modal-close waves-effect waves-green btn-flat" @click="deleteEntry">Yes</a>
                 <a class="modal-close waves-effect waves-green btn-flat">No</a>
 
             </div>

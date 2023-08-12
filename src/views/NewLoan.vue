@@ -15,12 +15,12 @@
                 <b> Client ID:</b>
             </div>
             <div class="input-field col s10">
-                <input id="autocomplete-input" class="autocomplete" type="text" v-model="client_id">
+                <input id="autocomplete-input" class="autocomplete" type="text" v-model="client_id" @change="setClientId">
             </div>
         </div>
 
         <div class="row">
-           
+
         </div>
 
         <div class="row">
@@ -36,7 +36,7 @@
             </div>
 
             <div class="input-field col s4">
-                <select v-model="type">
+                <select v-model="type" >
                     <option value="" disabled selected></option>
                     <option value="Personal">Personal</option>
                     <option value="Business">Business</option>
@@ -97,19 +97,18 @@ export default {
     data() {
         return {
             clients_data: {},
-            clients:{},
             client_id: null,
             purpose: null,
             amount: null,
             duration: null,
             guarantors: null,
             coap: null,
-            type:null,
+            type: null,
         }
     },
     computed: {
         isFormInvalid() {
-            console.log((this.client_id))
+            // console.log((this.client_id))
             return !this.purpose ||
                 !this.amount ||
                 !this.type ||
@@ -120,22 +119,27 @@ export default {
         }
     },
     methods: {
+        setClientId(event){
+            this.client_id = event.target.value;
+        },
         getClients() {
             ClientDataService.getAll()
                 .then(res => {
                     res.data.forEach(e => {
-                        this.client[e.client_id] = e.name;
-                        // this.clients_name.push(e.name);
-                        this.clients_data[e.name] = "";
-                        this.clients_data[e.client_id] = "";
-
+                        this.clients_data[e.client_id + " - " + e.name] = "";
                     })
+                })
+                .then(() => {
+                    var elems = document.querySelectorAll('.autocomplete');
+                    var instances = M.Autocomplete.init(elems, {
+                        data: this.clients_data,
+
+                    });
                 })
         },
         submitForm() {
-            var c = "";
             var data = {
-                client_id: this.client_id,
+                client_id: this.client_id.split(" ")[0],
                 purpose: this.purpose,
                 loan_status: "Pending",
                 loan_amount: this.amount,
@@ -145,7 +149,7 @@ export default {
                 validated_by: "Juan Dela Cruz",
                 loan_type: this.type,
             };
-
+            console.log(data)
             LoanDataService.create(data)
                 .then(response => {
                     console.log(response.data);
@@ -159,11 +163,7 @@ export default {
         this.getClients()
         var select = document.querySelectorAll('select');
         M.FormSelect.init(select);
-        var elems = document.querySelectorAll('.autocomplete');
-        var instances = M.Autocomplete.init(elems, {
-            data: this.clients_data,
 
-        });
     },
 
     beforeUnmount() {

@@ -151,7 +151,7 @@ exports.update = (req, res) => {
   const loan = {
     client_id: req.body.client_id,
     purpose: req.body.purpose,
-    loan_status: req.body.purpose.loan_status,
+    loan_status: req.body.loan_status,
     loan_amount: req.body.loan_amount,
     guarantors: req.body.guarantors,
     coapplicant: req.body.coapplicant,
