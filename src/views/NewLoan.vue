@@ -76,12 +76,15 @@
             </div>
 
             <div class="input-field col s4">
-                <input id="co-applicant" type="number" v-model="coap">
+                <select v-model="coap">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
             </div>
         </div>
 
         <form action="/loans" method="get">
-            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="button"
+            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="submit"
                 @click="submitForm">Add
                 <i class="material-icons left">add</i>
             </button>
@@ -101,8 +104,8 @@ export default {
             purpose: null,
             amount: null,
             duration: null,
-            guarantors: null,
-            coap: null,
+            guarantors: 0,
+            coap: 0,
             type: null,
         }
     },
@@ -113,8 +116,8 @@ export default {
                 !this.amount ||
                 !this.type ||
                 !this.duration ||
-                !this.guarantors ||
-                !this.coap ||
+                this.guarantors<0 ||
+                this.coap<0||
                 !this.client_id
         }
     },

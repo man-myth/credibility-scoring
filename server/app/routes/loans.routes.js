@@ -11,6 +11,10 @@ module.exports = app => {
     router.delete("/loans/:id", loans.delete);
     router.post("/loans", loans.create);
     router.put("/loans/:id", loans.update);
+    router.get("/loans/:id", loans.findOne);
+
+
+
     // // Retrieve all Tutorials
     // router.get("/", clients.findAll);
   

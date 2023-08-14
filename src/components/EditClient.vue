@@ -420,7 +420,7 @@ input{
 }
 
 
-.chip.selected {
+.chip.selected {    
     border: 1px solid;
     background-color: #757575;
     color: white;

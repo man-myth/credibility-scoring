@@ -4,7 +4,9 @@ class LoanDataService {
   getAll() {
     return http.get("/loans");
   }
-
+  get(id) {
+    return http.get(`/loans/${id}`);
+  }
   getLoans(id){
     return http.get(`/loans/client/${id}`)
   }

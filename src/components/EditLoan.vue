@@ -12,11 +12,15 @@
         <div class="divider top"></div>
         <div class="row">
             <div class="col s2">
-                <b> Clent ID:</b>
+                <b> Client ID:</b>
             </div>
             <div class="input-field col s10">
-                <input id="name" type="text" disabled v-model="loan.client_id">
+                <input disabled id="autocomplete-input" class="autocomplete" type="text" v-model="client_id" @change="setClientId">
             </div>
+        </div>
+
+        <div class="row">
+
         </div>
 
         <div class="row">
@@ -24,32 +28,38 @@
                 <b> Purpose:</b>
             </div>
             <div class="input-field col s10">
-                <input id="name" type="text">
+                <input id="purpose" type="text" v-model="purpose">
+            </div>
+            <div class="col s1"></div>
+            <div class="col s2">
+                <b>Loan Type:</b>
+            </div>
+
+            <div class="input-field col s4">
+                <select v-model="type" class="browser-default">
+                    <option value="" disabled selected></option>
+                    <option value="Personal">Personal</option>
+                    <option value="Business">Business</option>
+                    <option value="end-to-end">end-to-end</option>
+
+                </select>
             </div>
         </div>
-
         <!-- Two column -->
         <div class="row">
             <div class="col s2">
                 <b>Loan Amount:</b>
             </div>
             <div class="input-field col s3">
-                <input id="birthdate" type="text" class="datepicker">
+                <input id="amount" type="number" v-model="amount">
             </div>
             <div class="col s1"></div>
-            <div class="col s2">
+            <div class="col s2 ">
                 <b>Duration:</b>
             </div>
 
             <div class="input-field col s4">
-                <select>
-                    <option value="" disabled selected></option>
-                    <option value="1">Single</option>
-                    <option value="2">Married</option>
-                    <option value="3">Widowed</option>
-                    <option value="4">Divorced</option>
-                    <option value="5">Separated</option>
-                </select>
+                <input id="duration" type="number" v-model="duration">
             </div>
         </div>
 
@@ -58,7 +68,7 @@
                 <b>Guarantors:</b>
             </div>
             <div class="input-field col s3">
-                <input id="birthdate" type="text" class="datepicker">
+                <input id="guarantors" type="number" v-model="guarantors">
             </div>
             <div class="col s1"></div>
             <div class="col s2">
@@ -66,45 +76,93 @@
             </div>
 
             <div class="input-field col s4">
-                <select>
-                    <option value="" disabled selected></option>
-                    <option value="1">Single</option>
-                    <option value="2">Married</option>
-                    <option value="3">Widowed</option>
-                    <option value="4">Divorced</option>
-                    <option value="5">Separated</option>
+                <select v-model="coap" class="browser-default">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                 </select>
             </div>
         </div>
 
-        <form action="/clients" method="get">
-            <button class="btn-large waves-effect waves-light primary-color" type="submit">Add
-                <i class="material-icons left">add</i>
+        <form action="/loans" method="get">
+            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="button"
+                @click="submitForm">Update
+                <i class="material-icons left">edit</i>
             </button>
         </form>
     </div>
 </template>
 
 <script>
+import ClientDataService from "/src/services/ClientDataService";
+import LoanDataService from "/src/services/LoanDataService";
 
 export default {
     data() {
         return {
-            loan:{},
+            clients_data: {},
+            client_id: null,
+            purpose: null,
+            amount: null,
+            duration: null,
+            guarantors: null,
+            coap: null,
+            type: null,
+            status: null,
+        }
+    },
+    computed: {
+        isFormInvalid() {
+            return !this.purpose ||
+                !this.amount ||
+                !this.type ||
+                !this.duration ||
+                this.guarantors<0||
+                this.coap<0
+        }
+    },
+    methods: {
+        getLoan(){
+            LoanDataService.get(this.$route.query.loan)
+            .then(res =>{
+            this.client_id = res.data.client_id;
+            this.purpose = res.data.purpose;
+            this.amount = res.data.loan_amount;
+            this.duration = res.data.duration;
+            this.guarantors = res.data.guarantors;
+            this.coap = res.data.coapplicant;
+            this.type = res.data.loan_type;
+            this.status = res.data.loan_status;
+            })
+        },
+        submitForm() {
+            var data = {
+                client_id: this.client_id,
+                purpose: this.purpose,
+                loan_status: this.status,
+                loan_amount: this.amount,
+                guarantors: this.guarantors,
+                coapplicant: this.coap,
+                duration: this.duration,
+                validated_by: "Juan Dela Cruz",
+                loan_type: this.type,
+            };
+            console.log(data)
+            LoanDataService.update(this.$route.query.loan, data)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
         }
     },
     mounted() {
-        // var datePicker = document.querySelectorAll('.datepicker');
-        // M.Datepicker.init(datePicker);
+        this.getLoan()
         var select = document.querySelectorAll('select');
         M.FormSelect.init(select);
 
     },
 
-    beforeUnmount() {
-        var select = document.querySelectorAll('select');
-        select.forEach((s) => { M.FormSelect.getInstance(s).destroy() })
-    }
 }
 </script>
 
@@ -113,7 +171,11 @@ export default {
     background-color: #E9B81E;
 
 }
-
+.browser-default{
+    background-color: #E8E8E8;
+    border: none;
+    border-bottom: 1px #9e9e9e solid ;
+}
 .btn-floating i {
     color: black;
 }
@@ -135,9 +197,11 @@ export default {
 }
 
 .input-field {
-    margin: auto;
+    margin: 3px;
 }
-
+input{
+    padding: 20px;
+}
 .top-container {
     display: flex;
     gap: 2rem;
