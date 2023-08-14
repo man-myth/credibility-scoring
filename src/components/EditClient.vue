@@ -223,8 +223,7 @@
 
         <form action="/clients" method="get">
             <!-- <form > -->
-            <button  class="btn-large waves-effect waves-light primary-color" type="submit"
-                @click="submitForm">Edit
+            <button class="btn-large waves-effect waves-light primary-color" type="submit" @click="submitForm">Edit
                 <i class="material-icons left">edit</i>
             </button>
         </form>
@@ -233,7 +232,7 @@
 
 <script>
 import ClientDataService from "/src/services/ClientDataService";
-
+import computeScore from "/src/assets/js/computeCreditScore.js"
 export default {
     data() {
         return {
@@ -264,6 +263,47 @@ export default {
         // }
     },
     methods: {
+        computeCreditScore() {
+            ScoreDataService.getAll()
+                .then(res => {
+                    var scorecard = res.data;
+                    var score = computeScore(scorecard, this.birthday, this.sex, this.dependents, this.education, this.housing, this.residence, this.employment, this.industry, this.income, this.savings, this.insurance);
+                    this.credit_score = score.score;
+
+                })
+                .then(() => {
+                    var data = {
+                        name: this.name,
+                        picture: this.picture,
+                        address: this.address,
+                        gender: this.gender,
+                        birthday: this.birthday,
+                        contact: this.contact,
+                        credit_score: this.credit_score,
+                        marital_status: this.marital_status,
+                        dependents: this.dependents,
+                        education: this.education,
+                        housing: this.housing,
+                        years_residence: this.years_residence,
+                        employment: this.employment,
+                        industry: this.industry,
+                        loan_history: this.loan_history,
+                        income: this.income,
+                        expenses: this.expenses,
+                        savings: this.savings,
+                        properties: JSON.stringify(this.selectedProperties),
+                    };
+
+                    ClientDataService.create(data)
+                        .then(response => {
+                            console.log(response.data);
+                        })
+                        .catch(e => {
+                            console.log(e);
+                        });
+                })
+
+        },
         getClient() {
             ClientDataService.get(this.$route.query.client).then(response => {
                 var select = document.querySelectorAll('select');
@@ -276,7 +316,7 @@ export default {
 
                 M.FormSelect.init(select);
 
-                
+
             })
                 .catch(e => {
                     console.log(e);
@@ -300,45 +340,18 @@ export default {
             this.birthday = event.target.value;
         },
         submitForm() {
-            var data = {
-                name: this.client.name,
-                picture: this.client.picture,
-                address: this.client.address,
-                gender: this.client.gender,
-                birthday: this.client.birthday,
-                contact: this.client.contact,
-                credit_score: this.credit_score,
-                marital_status: this.marital_status,
-                dependents: this.client.dependents,
-                education: this.client.education,
-                housing: this.client.housing,
-                years_residence: this.client.years_residence,
-                employment: this.client.employment,
-                industry: this.client.industry,
-                loan_history: this.loan_history,
-                income: this.client.income,
-                expenses: this.client.expenses,
-                savings: this.client.savings,
-                properties: JSON.stringify(this.selectedProperties),
-            };
+            this.computeCreditScore();
 
-            ClientDataService.update(this.client.client_id, data)
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(e => {
-                    console.log(e);
-                });
+        }, created() {
+
+        },
+        mounted() {
+            this.getClient();
+        },
+        beforeUnmount() {
+            // var select = document.querySelectorAll('select');
+            // select.forEach((s) => { M.FormSelect.getInstance(s).destroy() })
         }
-    }, created() {
-        
-    },
-    mounted() {
-        this.getClient();
-    },
-    beforeUnmount() {
-        // var select = document.querySelectorAll('select');
-        // select.forEach((s) => { M.FormSelect.getInstance(s).destroy() })
     }
 }
 </script>
@@ -378,14 +391,16 @@ export default {
     /* margin: auto; */
     /* background-color: #ffffff; */
     border-radius: 48px;
-    margin:3px;
+    margin: 3px;
 }
-.browser-default{
+
+.browser-default {
     background-color: #E8E8E8;
     border: none;
-    border-bottom: 1px #9e9e9e solid ;
+    border-bottom: 1px #9e9e9e solid;
 }
-input{
+
+input {
     padding: 20px;
 }
 
@@ -420,7 +435,7 @@ input{
 }
 
 
-.chip.selected {    
+.chip.selected {
     border: 1px solid;
     background-color: #757575;
     color: white;

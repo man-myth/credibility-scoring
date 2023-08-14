@@ -244,8 +244,8 @@ export default {
                 { strokeStyle: "#00552B", min: 740, max: 850 }  // Red
             ],
         };
-        var target = document.getElementById('gaugeArea');
-        var gauge = new Gauge(target).setOptions(opts);
+        const target = document.getElementById('gaugeArea');
+        const gauge = new Gauge(target).setOptions(opts);
         gauge.maxValue = 850;
         gauge.setMinValue(300);
         gauge.set(this.client.credit_score); // set actual value
@@ -303,4 +303,8 @@ div#confirmationModal {
 
 .modal-content p {
     font-weight: normal;
-}</style>
+}
+.materialboxed{
+    margin-top: 10px;
+}
+</style>

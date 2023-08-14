@@ -133,9 +133,9 @@
                         <p> {{ client.expenses }}</p>
                     </div>
                 </div>
-                <div v-if="loan.loan_status!='Approved' && loan.loan_status!='Disapproved' " class="row center-align">
-                    <a href="/loans" class="col s5 waves-effect waves-light btn approve" @click="approveLoan">Approve</a>
-                    <a href="/loans" class="col s5 waves-effect waves-light btn disapprove" @click="disapproveLoan">Disapprove</a>
+                <div class="row center-align buttons-container">
+                    <a href="/loans" :class="{ 'disabled-link': !checkStatus }" class="col s5 waves-effect waves-light btn approve" @click="approveLoan">Approve</a>
+                    <a href="/loans" :class="{ 'disabled-link': !checkStatus }" class="col s5 waves-effect waves-light btn disapprove" @click="disapproveLoan">Disapprove</a>
                 </div>
             </div>
             <div class="col s5 ">
@@ -197,10 +197,10 @@
                             <p> {{ loan.coapplicant }}</p>
                         </div>
                     </div>
-                    <div class="col s12">
-                        <div class="">Credit Score:{{ client.credit_score }}</div>
-                        <div class="">
-                            <canvas id="gaugeArea"></canvas>
+                    <div class="credit-score">
+                        <div >Credit Score:{{ client.credit_score }} </div>
+                        <div >
+                            <canvas id="gaugeArea2"></canvas>
                         </div>
                     </div>
                 </div>
@@ -229,6 +229,13 @@ export default {
     data() {
         return {
             client: {},
+        }
+    },
+    computed:{
+        checkStatus(){
+            console.log(this.loan.loan_status!="Approved" && this.loan.loan_status!="Disapproved")
+
+            return (this.loan.loan_status!="Approved" && this.loan.loan_status!="Disapproved");
         }
     },
     methods: {
@@ -298,11 +305,13 @@ export default {
                 { strokeStyle: "#00552B", min: 740, max: 850 }  // Red
             ],
         };
-        var target = document.getElementById('gaugeArea');
-        var gauge = new Gauge(target).setOptions(opts);
-        gauge.maxValue = 850;
+        const target = document.getElementById('gaugeArea2');
+        const gauge = new Gauge(target).setOptions(opts);
         gauge.setMinValue(300);
+        gauge.maxValue = 850;
         gauge.set(this.client.credit_score); // set actual value
+
+
         var materialBox = document.querySelectorAll('.materialboxed');
         M.Materialbox.init(materialBox);
         var modal = document.querySelectorAll('.modal');
@@ -314,6 +323,15 @@ export default {
 </script>
 
 <style scoped>
+.credit-score{
+    padding: 5px;
+    border-radius: 38px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap:1rem;   
+    border: 1px solid black;   
+}
 .right a {
     margin-right: 10px;
 }
@@ -364,9 +382,31 @@ div#confirmationModal {
     font-weight: normal;
 }
 .approve{
-    background-color: green;
+    border-radius: 38px;
+    color: white;
+    background-color: #27C353;
 }
 .disapprove{
-    background-color: red;
+    border-radius: 38px;
+    color: white;
+    background-color: #FF0000;
+}
+
+.buttons-container{
+    margin-top: 8px;
+   display: flex;
+}
+.materialboxed{
+    margin-top: 10px;
+}
+.disabled-link{
+    color: black;
+    background-color: grey;
+  pointer-events: none;
+  text-decoration: none;
+}
+canvas{
+    width: 300px;
+    height: 150px;
 }
 </style>

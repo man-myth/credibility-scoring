@@ -55,7 +55,7 @@
                 <b>Dependents:</b>
             </div>
             <div class="input-field col s3">
-                <input id="name" type="number" v-model="dependents" pattern="?[0-9]*" >
+                <input id="name" type="number" v-model="dependents" pattern="?[0-9]*">
             </div>
             <div class="col s1 right-align">
                 <b>Sex:</b>
@@ -151,7 +151,7 @@
                     <option value="Education and Academia">Education and Academia</option>
                     <option value="Tourism and Hospitality">Tourism and Hospitality</option>
                     <option value="Construction and Engineering">Construction and Engineering</option>
-                    <option value="Media and Entertainment">Media and Entertainment</option>
+                    <option value="Me    and Entertainment">Media and Entertainment</option>
                     <option value="Government and Public Administration">Government and Public Administration</option>
                     <option value="Transportation and Logistics">Transportation and Logistics</option>
                     <option value="Agriculture and Farming">Agriculture and Farming</option>
@@ -223,8 +223,9 @@
         </div>
 
         <form action="/clients" method="get">
-        <!-- <form > -->
-            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="submit" @click="submitForm">Add
+            <!-- <form > -->
+            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="button"
+                @click="submitForm">Add
                 <i class="material-icons left">add</i>
             </button>
         </form>
@@ -250,7 +251,7 @@ export default {
             contact: null,
             credit_score: 600,
             marital_status: null,
-            dependents: null,
+            dependents: 0,
             education: null,
             housing: null,
             years_residence: null,
@@ -264,6 +265,24 @@ export default {
     },
     computed: {
         isFormInvalid() {
+            //             console.log(!this.name)
+            //             console.log(!this.picture)
+            //             console.log(!this.address)
+            //             console.log(!this.gender)
+            //             console.log(!this.birthday)
+            //             console.log(!this.contact)
+            //             console.log(!this.marital_status)
+            //             console.log(!this.dependents>=0)
+            //             console.log(!this.education)
+            //             console.log(!this.housing)
+            //             console.log(!this.years_residence)
+            //             console.log(!this.employment)
+            //             console.log(!this.industry)
+            //             console.log(!this.loan_history)
+            //             console.log(!this.income)
+            //             console.log(!this.expenses)
+            //             console.log(!this.savings)
+            // console.log("-----------------")
             return !this.name ||
                 !this.picture ||
                 !this.address ||
@@ -271,7 +290,7 @@ export default {
                 !this.birthday ||
                 !this.contact ||
                 !this.marital_status ||
-                !this.dependents ||
+                // !this.dependents>=0 ||
                 !this.education ||
                 !this.housing ||
                 !this.years_residence ||
@@ -284,19 +303,50 @@ export default {
         }
     },
     methods: {
-        computeCreditScore(){
+        computeCreditScore() {
             ScoreDataService.getAll()
-            .then(res=>{
-                var scorecard = res.data;
-                var score = computeScore(scorecard, this.birthday, this.sex, this.dependents, this.education, this.housing, this.residence, this.employment, this.industry, this.income, this.savings, this.insurance);
-                console.log(score)
-                return score;
-            });
+                .then(res => {
+                    var scorecard = res.data;
+                    var score = computeScore(scorecard, this.birthday, this.sex, this.dependents, this.education, this.housing, this.residence, this.employment, this.industry, this.income, this.savings, this.insurance);
+                    console.log(score.score)
+                    this.credit_score = score.score;
+
+                })
+                .then(() => {
+
+                    var data = {
+                        name: this.name,
+                        picture: this.picture,
+                        address: this.address,
+                        gender: this.gender,
+                        birthday: this.birthday,
+                        contact: this.contact,
+                        credit_score: this.credit_score,
+                        marital_status: this.marital_status,
+                        dependents: this.dependents,
+                        education: this.education,
+                        housing: this.housing,
+                        years_residence: this.years_residence,
+                        employment: this.employment,
+                        industry: this.industry,
+                        loan_history: this.loan_history,
+                        income: this.income,
+                        expenses: this.expenses,
+                        savings: this.savings,
+                        properties: JSON.stringify(this.selectedProperties),
+                    };
+
+                    ClientDataService.create(data)
+                        .then(response => {
+                            console.log(response.data);
+                        })
+                        .catch(e => {
+                            console.log(e);
+                        });
+                })
 
         },
         addProperty(c) {
-            console.log(this.birthday)
-            console.log(this.selectedProperties)
             var element = document.getElementById(c)
 
             if (this.selectedProperties.includes(c)) {
@@ -311,45 +361,18 @@ export default {
             const file = this.$refs.fileInput.files[0];
             console.log(file);
         },
-        setBirthday(event){
+        setBirthday(event) {
             this.birthday = event.target.value;
         },
         submitForm() {
-            var data = {
-                name: this.name,
-                picture: this.picture,
-                address: this.address,
-                gender: this.gender,
-                birthday: this.birthday,
-                contact: this.contact,
-                credit_score: this.computeCreditScore(),
-                marital_status: this.marital_status,
-                dependents: this.dependents,
-                education: this.education,
-                housing: this.housing,
-                years_residence: this.years_residence,
-                employment: this.employment,
-                industry: this.industry,
-                loan_history: this.loan_history,
-                income: this.income,
-                expenses: this.expenses,
-                savings: this.savings,
-                properties: JSON.stringify(this.selectedProperties),
-            };
+            this.computeCreditScore();
 
-            ClientDataService.create(data)
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(e => {
-                    console.log(e);
-                });
         }
     },
 
 
     mounted() {
-        this.computeCreditScore();
+        // this.computeCreditScore();
         var datePicker = document.querySelectorAll('.datepicker');
         M.Datepicker.init(datePicker);
         var select = document.querySelectorAll('select');

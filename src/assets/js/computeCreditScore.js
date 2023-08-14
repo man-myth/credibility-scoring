@@ -163,9 +163,9 @@ export default function compute(scorecard, birthday, sex, dependents, education,
         score += scorecard[72].score;
     }
 
-    console.log(scorecard[40].score);
+    // console.log(scorecard[40].score);
 
-    console.log(score);
+    // console.log(score);
 
     return {"score": score, "invalid_variable":invalidVar}
 }
