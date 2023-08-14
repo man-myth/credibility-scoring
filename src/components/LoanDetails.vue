@@ -3,9 +3,10 @@
         <div class="row right">
             <a class="waves-effect waves-green btn-floating modal-trigger" data-target="confirmationModal"><i
                     class="material-icons large">delete_forever</i></a>
-            <router-link :to="{name:'EditLoan', query:{loan:loan.loan_id}}"  class="waves-effect waves-green btn-floating" @click="showTable">
+            <router-link :to="{ name: 'EditLoan', query: { loan: loan.loan_id } }"
+                class="waves-effect waves-green btn-floating" @click="showTable">
                 <i class="material-icons large">edit</i>
-                </router-link>
+            </router-link>
             <a class="waves-effect waves-green btn-floating" @click="showTable"><i
                     class="material-icons large">close</i></a>
         </div>
@@ -13,9 +14,9 @@
         <div id="confirmationModal" class="modal">
             <div class="modal-content">
                 <h4 class="center">Are you sure you want to delete this entry?</h4>
-                <p>Loan ID : {{ loan.loan_id}}</p>
+                <p>Loan ID : {{ loan.loan_id }}</p>
                 <p>Client Name : {{ client.name }}</p>
-                <p>Loan Amount: {{ loan.loan_amount   }}</p>
+                <p>Loan Amount: {{ loan.loan_amount }}</p>
             </div>
             <div class="modal-footer">
                 <a href="/loans" class="modal-close waves-effect waves-green btn-flat" @click="deleteEntry">Yes</a>
@@ -132,23 +133,80 @@
                         <p> {{ client.expenses }}</p>
                     </div>
                 </div>
+                <div v-if="loan.loan_status!='Approved' && loan.loan_status!='Disapproved' " class="row center-align">
+                    <a href="/loans" class="col s5 waves-effect waves-light btn approve" @click="approveLoan">Approve</a>
+                    <a href="/loans" class="col s5 waves-effect waves-light btn disapprove" @click="disapproveLoan">Disapprove</a>
+                </div>
             </div>
             <div class="col s5 ">
                 <div class="row center-align">
                     <div class="image-container col s12">
-                        <ProfileAvatar username="j" class="materialboxed" customSize="150px"
-                            image="src/assets/images/profile-pic.jpeg">
+                        <ProfileAvatar :username="client.name" class="materialboxed" customSize="150px" colorType="pastel">
                         </ProfileAvatar>
                     </div>
-                    <div class="col s12">Credit Score:{{ client.credit_score }}</div>
+                </div>
+                <div class="col s12">
+                    <div class="card heading">
+                        <div class="card-title">Loan</div>  
+                    </div>
+                    <div class="row center-align">
+                        <div class="col s5">
+                            <h6>Loan ID:</h6>
+                        </div>
+                        <div class="col s7">
+                            <p> {{ loan.loan_id }}</p>
+                        </div>
+                    </div>
+                    <div class="row center-align">
+                        <div class="col s5">
+                            <h6>Amount:</h6>
+                        </div>
+                        <div class="col s7">
+                            <p> {{ loan.loan_amount }}</p>
+                        </div>
+                    </div>
+                    <div class="row center-align">
+                        <div class="col s5">
+                            <h6>Purpose:</h6>
+                        </div>
+                        <div class="col s7">
+                            <p> {{ loan.purpose }}</p>
+                        </div>
+                    </div>
+                    <div class="row center-align">
+                        <div class="col s5">
+                            <h6>Duration:</h6>
+                        </div>
+                        <div class="col s7">
+                            <p> {{ loan.duration }}</p>
+                        </div>
+                    </div>
+                    <div class="row center-align">
+                        <div class="col s5">
+                            <h6>Guarantors:</h6>
+                        </div>
+                        <div class="col s7">
+                            <p> {{ loan.guarantors }}</p>
+                        </div>
+                    </div>
+                    <div class="row center-align">
+                        <div class="col s5">
+                            <h6>Coaaplicant:</h6>
+                        </div>
+                        <div class="col s7">
+                            <p> {{ loan.coapplicant }}</p>
+                        </div>
+                    </div>
                     <div class="col s12">
-                        <canvas id="gaugeArea"></canvas>
+                        <div class="">Credit Score:{{ client.credit_score }}</div>
+                        <div class="">
+                            <canvas id="gaugeArea"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-       
+
 
     </div>
 </template>
@@ -171,9 +229,29 @@ export default {
     data() {
         return {
             client: {},
-                }
+        }
     },
     methods: {
+        approveLoan(){
+            this.loan.loan_status = "Approved";
+            LoanDataService.update(this.loan.loan_id, this.loan)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        },
+        disapproveLoan(){
+            this.loan.loan_status = "Disapproved";
+            LoanDataService.update(this.loan.loan_id, this.loan)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        },
         deleteEntry() {
             LoanDataService.delete(this.loan.loan_id)
                 .catch(e => {
@@ -197,10 +275,6 @@ export default {
     },
     mounted() {
         this.getClient();
-        var materialBox = document.querySelectorAll('.materialboxed');
-        M.Materialbox.init(materialBox);
-        var modal = document.querySelectorAll('.modal');
-        M.Modal.init(modal);
 
         var opts = {
             angle: -0.20, // The span of the gauge arc
@@ -229,6 +303,11 @@ export default {
         gauge.maxValue = 850;
         gauge.setMinValue(300);
         gauge.set(this.client.credit_score); // set actual value
+        var materialBox = document.querySelectorAll('.materialboxed');
+        M.Materialbox.init(materialBox);
+        var modal = document.querySelectorAll('.modal');
+        M.Modal.init(modal);
+
     }
 
 }
@@ -283,4 +362,11 @@ div#confirmationModal {
 
 .modal-content p {
     font-weight: normal;
-}</style>
+}
+.approve{
+    background-color: green;
+}
+.disapprove{
+    background-color: red;
+}
+</style>
