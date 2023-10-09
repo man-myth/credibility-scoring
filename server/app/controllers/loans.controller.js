@@ -144,7 +144,7 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const loan = {
-    client_id: req.body.client_id,
+    client_id: parseInt(req.body.client_id),
     purpose: req.body.purpose,
     loan_status: req.body.loan_status,
     loan_amount: req.body.loan_amount,
@@ -154,7 +154,7 @@ exports.create = (req, res) => {
     validated_by: req.body.validated_by,
     loan_type: req.body.loan_type,
   };
-
+  
   // Save Tutorial in the database
   Loans.create(loan)
     .then((data) => {
