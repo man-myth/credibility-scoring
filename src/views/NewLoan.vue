@@ -84,6 +84,7 @@
         </div>
 
         <form action="/loans" method="get">
+            <!-- <form  method="get"> -->
             <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="submit"
                 @click="submitForm">Add
                 <i class="material-icons left">add</i>
@@ -159,6 +160,7 @@ export default {
                 })
                 .catch(e => {
                     console.log(e);
+                    
                 });
         }
     },

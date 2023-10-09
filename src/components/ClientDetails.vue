@@ -20,9 +20,9 @@
             <div class="modal-footer">
                 <a href="/clients" class="modal-close waves-effect waves-green btn-flat" @click="deleteEntry">Yes</a>
                 <a class="modal-close waves-effect waves-green btn-flat">No</a>
-
             </div>
         </div>
+        <!--  -->
         <div class="row">
             <div class="col s7">
                 <div class="card heading">
@@ -195,6 +195,7 @@ export default {
                 }
     },
     methods: {
+        
         deleteEntry() {
             ClientDataService.delete(this.client.client_id)
                 .catch(e => {

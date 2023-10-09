@@ -1,7 +1,16 @@
 const db = require("../models");
 const Client = db.clients;
 const Op = db.Sequelize.Op;
+const fs = require('fs');
+const path = require('path');
 
+// Set the directory where you want to save the uploaded images
+const uploadDirectory = path.join('./', 'uploads', 'profile-pictures');
+
+// Create the upload directory if it doesn't exist
+if (!fs.existsSync(uploadDirectory)) {
+  fs.mkdirSync(uploadDirectory);
+}
 // Create and Save a new Tutorial
 
 // Retrieve all Tutorials from the database.
@@ -26,10 +35,29 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a Tutorial
+  const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, '');
+  const buffer = Buffer.from(base64Data, 'base64');
+
+  // Generate a unique file name (you can use any logic you prefer)
+  const fileName = `${Date.now()}_image.jpg`;
+
+  // Define the path to save the file
+  const filePath = path.join(uploadDirectory, fileName);
+  console.log(filePath)
+  // Save the image to the specified path
+  fs.writeFile(filePath, buffer, 'base64', (err) => {
+    if (err) {
+      console.error('Error:', err);
+      res.status(500).json({ error: 'Failed to save the image' });
+    } else {
+      console.log(`Image saved as ${filePath}`);
+    }
+  });
+
+  // Create a Client
   const client = {
     name: req.body.name,
-    picture: req.body.picture,
+    picture: filePath,
     address: req.body.address,
     gender: req.body.gender,
     birthday: req.body.birthday,
@@ -46,7 +74,8 @@ exports.create = (req, res) => {
     income: req.body.income,
     expenses: req.body.expenses,
     savings: req.body.savings,
-    properties: req.body.properties
+    properties: req.body.properties,
+ 
   };
 
   // Save Tutorial in the database
@@ -107,7 +136,7 @@ exports.update = (req, res) => {
         message: "Error updating Client with id=" + id
       });
     });
- };
+};
 
 exports.delete = (req, res) => {
   const id = req.params.id;
@@ -134,8 +163,3 @@ exports.delete = (req, res) => {
     });
 };
 
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => { };
-
-// Find all published Tutorials
-exports.findAllPublished = (req, res) => { };

@@ -21,7 +21,19 @@
                 <b> Picture:</b>
             </div>
             <div class="input-field col s4">
-                <input type="file" id="picture" name="filename" accept="image/*">
+                <div class="waves-effect waves-light btn modal-trigger" href="#image-modal" @click="showImageModal">
+                    <i class="material-icons">add</i>
+                </div>
+                <div id="image-modal" class="modal">
+                    <div class="modal-content">
+                        <h4>Upload image</h4>
+                        <input type="file" id="file-input" name="filename" accept="image/*">
+                        <div class="image-container"></div>
+                        <div class="modal-close waves-effect waves-light btn hide upload" type="submit">Upload </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
         <!-- Second Row -->
@@ -151,7 +163,7 @@
                     <option value="Education and Academia">Education and Academia</option>
                     <option value="Tourism and Hospitality">Tourism and Hospitality</option>
                     <option value="Construction and Engineering">Construction and Engineering</option>
-                    <option value="Me    and Entertainment">Media and Entertainment</option>
+                    <option value="Media and Entertainment">Media and Entertainment</option>
                     <option value="Government and Public Administration">Government and Public Administration</option>
                     <option value="Transportation and Logistics">Transportation and Logistics</option>
                     <option value="Agriculture and Farming">Agriculture and Farming</option>
@@ -234,8 +246,9 @@
 
 <script>
 import ClientDataService from "/src/services/ClientDataService";
-import ScoreDataService from "/src/services/ScoreDataService"
-import computeScore from "/src/assets/js/computeCreditScore.js"
+import ScoreDataService from "/src/services/ScoreDataService";
+import computeScore from "/src/assets/js/computeCreditScore.js";
+import Cropper from 'cropperjs';
 
 export default {
 
@@ -261,6 +274,7 @@ export default {
             income: null,
             expenses: null,
             savings: null,
+            image: '',
         }
     },
     computed: {
@@ -303,6 +317,7 @@ export default {
         }
     },
     methods: {
+
         computeCreditScore() {
             ScoreDataService.getAll()
                 .then(res => {
@@ -334,6 +349,7 @@ export default {
                         expenses: this.expenses,
                         savings: this.savings,
                         properties: JSON.stringify(this.selectedProperties),
+                        image:this.image
                     };
 
                     ClientDataService.create(data)
@@ -377,8 +393,63 @@ export default {
         M.Datepicker.init(datePicker);
         var select = document.querySelectorAll('select');
         M.FormSelect.init(select);
+        var modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
+
+        var file = document.querySelector('#file-input');
+        var image = document.querySelector('.image-container');
+        var upload = document.querySelector('.upload');
+        let cropper = '';
+        // on change show image with crop options
+        file.addEventListener('change', e => {
+            if (e.target.files.length) {
+                // start file reader
+                const reader = new FileReader();
+
+                reader.onload = e => {
+                    if (e.target.result) {
+                        // create new image
+                        let img = document.createElement('img');
+                        img.id = 'pic';
+                        img.src = e.target.result;
+
+                        // clean result before
+                        image.innerHTML = '';
+
+                        // append new image
+                        image.appendChild(img);
+                        // console.log(img)
 
 
+                        upload.classList.remove('hide');
+                        if (cropper) {
+                            cropper.destroy();
+                        }
+                        // init cropper
+                        cropper = new Cropper(img, {
+                            aspectRatio: 1, // 1:1 aspect ratio
+                            viewMode: 1,    // Restrict the crop box to the container
+                            dragMode: 'crop',
+                            crop: function (event) {
+                                // You can access the cropped data using event.detail
+                                // console.log(event.detail);
+                            }
+                        }
+                        );
+                    }
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // upload image
+        upload.addEventListener('click', e => {
+            e.preventDefault();
+            // get result to data uri
+            let imgSrc = cropper.getCroppedCanvas().toDataURL('image/jpeg');
+            this.image = imgSrc;
+
+        });
     },
 
     beforeUnmount() {
@@ -459,8 +530,18 @@ export default {
     color: white;
 }
 
+
+
+.image-container {
+    height: 30vh;
+}
+
 form {
     margin: 2rem;
     text-align: center;
+}
+
+.hide {
+    display: none;
 }
 </style>

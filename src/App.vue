@@ -43,4 +43,8 @@ html{
 .router-link-active.router-link-exact-active i.material-icons{
     color: black;
 }
+img#pic {
+    /* max-width: 100%; */
+    max-height: 29vh;
+}
 </style>
