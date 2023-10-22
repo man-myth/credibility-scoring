@@ -184,7 +184,7 @@ export default {
             salesData: {
                 labels: ['February', 'January', 'March', 'April', 'May', 'June'],
                 datasets: [{
-                    label: '# of accepted loans',
+                    label: '# of loan applications',
                     data: [120, 190, 130, 150, 120, 150],
                     borderWidth: 2
                 }]

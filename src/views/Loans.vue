@@ -4,7 +4,7 @@
     <div v-if="showDetails">
         <LoanDetails :loan="selectedLoan" @close="showTable"></LoanDetails>
     </div>
-    <div v-if="!showDetails">
+    <div class="table-container" v-if="!showDetails">
         <table class="highlight">
             <thead>
                 <tr>
@@ -112,4 +112,7 @@ export default {
     justify-content: center;
 }
 
+.table-container{
+    background-color: white;
+}
 </style>

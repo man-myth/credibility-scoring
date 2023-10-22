@@ -4,7 +4,7 @@
     <div v-if="showDetails">
         <ClientDetails :client="selectedClient" @close="showTable"></ClientDetails>
     </div>
-    <div v-if="!showDetails">
+    <div class="table-container" v-if="!showDetails">
         <table class="highlight">
             <thead>
                 <tr>
@@ -107,7 +107,9 @@ export default {
 .divider {
     background-color: black;
 }
-
+.table-container{
+    background-color: white;
+}
 .details-panel {
     display: flex;
     justify-content: center;

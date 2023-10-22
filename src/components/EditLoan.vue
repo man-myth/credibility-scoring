@@ -84,7 +84,7 @@
         </div>
 
         <form action="/loans" method="get">
-            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="button"
+            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="submit"
                 @click="submitForm">Update
                 <i class="material-icons left">edit</i>
             </button>

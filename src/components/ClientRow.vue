@@ -45,7 +45,7 @@ export default {
 <style>
 td {
     font-size: 0.8rem;
-    background-color: white;
+    /* background-color: white; */
 
 }
 

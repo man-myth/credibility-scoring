@@ -44,7 +44,7 @@ export default {
 <style>
 table {
     font-size: 0.8rem;
-    background-color: white;
+    /* background-color: white; */
 }
 
 .Approved{
@@ -57,5 +57,6 @@ table {
 .Pending{
     color: grey;
 }
+
 
 </style>

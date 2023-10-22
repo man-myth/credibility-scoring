@@ -26,17 +26,20 @@
                     <i class="material-icons">filter_list</i>
                 </div>
                 <ul id='dropdown1' class='dropdown-content'>
-                <li>
-                    <a>Gender</a>
-                    <input type="text" id="search" placeholder="Search" v-model="searchText" @keyup="search">
+                     <li>
+                        <a>Gender</a>
+                        <a>Credit Score</a>
+                        <a>Loans</a>
+                        <!-- <input type="text" id="search" placeholder="Search" v-model="searchText" @keyup="search"> -->
 
-                </li>
-                <li><a>Age</a></li>
-                <li class="divider" tabindex="-1"></li>
-                <li><a>Credit Score</a></li>
-                <li><a><i class="material-icons">view_module</i>four</a></li>
-                <li><a><i class="material-icons">cloud</i>five</a></li>
-            </ul>   
+                    </li>
+<!--
+                    <li><a>Age</a></li>
+                    <li class="divider" tabindex="-1"></li>
+                    <li><a>Credit Score</a></li>
+                    <li><a><i class="material-icons">view_module</i>four</a></li>
+                    <li><a><i class="material-icons">cloud</i>five</a></li> -->
+                </ul>
             </div>
             <div class="col m1 l1 center">
                 <div class="btn-floating btn-medium waves-effect waves-light" @click="sortByName">
@@ -102,9 +105,11 @@ export default {
     display: flex;
     align-items: center;
 }
+
 ul#dropdown1 {
     width: 200px !important;
 }
+
 .container-lg {
     padding: 1rem;
     width: 100%;
