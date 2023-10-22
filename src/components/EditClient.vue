@@ -351,12 +351,8 @@ export default {
             this.selectedProperties.push(c)
             element.classList.add('selected')
         },
-        handleFileChange() {
-            const file = this.$refs.fileInput.files[0];
-            console.log(file);
-        },
         setBirthday(event) {
-            this.birthday = event.target.value;
+            this.client.birthday = event.target.value;
         },
         submitForm() {
             this.computeCreditScore();
