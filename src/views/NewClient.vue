@@ -295,7 +295,7 @@ export default {
             //             console.log(!this.loan_history)
             //             console.log(!this.income)
             //             console.log(!this.expenses)
-            //             console.log(!this.savings)
+                        // console.log(!(this.savings >= 0))
             // console.log("-----------------")
             return !this.name ||
                 !this.picture ||
@@ -304,16 +304,16 @@ export default {
                 !this.birthday ||
                 !this.contact ||
                 !this.marital_status ||
-                // !this.dependents>=0 ||
+                !(this.dependents >= 0) ||
                 !this.education ||
                 !this.housing ||
-                !this.years_residence ||
+                !(this.years_residence >= 0)||
                 !this.employment ||
                 !this.industry ||
                 !this.loan_history ||
-                !this.income ||
-                !this.expenses ||
-                !this.savings;
+                !(this.income >= 0 )||
+                !(this.expenses >= 0 )||
+                !(this.savings >= 0);
         }
     },
     methods: {

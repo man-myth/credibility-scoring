@@ -141,7 +141,7 @@
             <div class="col s5 ">
                 <div class="row center-align">
                     <div class="image-container col s12">
-                        <ProfileAvatar :username="client.name" class="materialboxed" customSize="150px" colorType="pastel">
+                        <ProfileAvatar :username="client.name" :image="picture" class="materialboxed" customSize="150px" colorType="pastel">
                         </ProfileAvatar>
                     </div>
                 </div>
@@ -229,6 +229,7 @@ export default {
     data() {
         return {
             client: {},
+            picture:"",
         }
     },
     computed:{
@@ -272,7 +273,17 @@ export default {
             ClientDataService.get(this.loan.client_id)
                 .then(res => {
                     this.client = res.data;
+                    this.getProfilePic();
                     // console.log(this.loans)
+                })
+                .catch(e => {
+                    console.log(e);
+                })
+        },
+        getProfilePic() {
+            ClientDataService.getImage(this.client.picture)
+                .then(res => {
+                    this.picture = res.config.baseURL + res.config.url;
                 })
                 .catch(e => {
                     console.log(e);
@@ -282,7 +293,6 @@ export default {
     },
     mounted() {
         this.getClient();
-
         var opts = {
             angle: -0.20, // The span of the gauge arc
             lineWidth: 0.20, // The line thickness

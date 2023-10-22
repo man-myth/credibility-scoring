@@ -4,6 +4,7 @@ const Op = db.Sequelize.Op;
 const fs = require('fs');
 const path = require('path');
 
+
 // Set the directory where you want to save the uploaded images
 const uploadDirectory = path.join('./', 'uploads', 'profile-pictures');
 
@@ -11,9 +12,9 @@ const uploadDirectory = path.join('./', 'uploads', 'profile-pictures');
 if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory);
 }
-// Create and Save a new Tutorial
+// Create and Save a new client
 
-// Retrieve all Tutorials from the database.
+// Retrieve all clients from the database.
 exports.findAll = (req, res) => {
   Client.findAll()
     .then((data) => {
@@ -57,7 +58,7 @@ exports.create = (req, res) => {
   // Create a Client
   const client = {
     name: req.body.name,
-    picture: filePath,
+    picture: fileName,
     address: req.body.address,
     gender: req.body.gender,
     birthday: req.body.birthday,
@@ -75,10 +76,10 @@ exports.create = (req, res) => {
     expenses: req.body.expenses,
     savings: req.body.savings,
     properties: req.body.properties,
- 
+
   };
 
-  // Save Tutorial in the database
+  // Save client in the database
   Client.create(client)
     .then(data => {
       res.send(data);
@@ -91,8 +92,23 @@ exports.create = (req, res) => {
     });
 }
 
-
-// Find a single Tutorial with an id
+exports.getImage = (req, res) => {
+  console.log(uploadDirectory)
+  console.log(req.params.image)
+  const imagePath = path.join(uploadDirectory, req.params.image);
+  ;
+  fs.readFile(imagePath, (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('no image found');
+    } else {
+      // Set the appropriate content type for the image
+      res.contentType('image/jpeg');
+      res.send(data);
+    }
+  });
+}
+// Find a single client with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
@@ -147,11 +163,11 @@ exports.delete = (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was deleted successfully!"
+          message: "client was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete Client with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot delete Client with id=${id}. Maybe client was not found!`
         });
       }
     })

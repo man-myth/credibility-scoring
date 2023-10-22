@@ -9,6 +9,9 @@ class ClientDataService {
     return http.get(`/clients/${id}`);
   }
 
+  getImage(image){
+    return http.get(`/clients/image/${image}`);
+  }
   create(data) {
     return http.post("/clients", data);
   }
@@ -21,13 +24,6 @@ class ClientDataService {
     return http.delete(`/clients/${id}`);
   }
 
-  // deleteAll() {
-  //   return http.delete(`/tutorials`);
-  // }
-
-  // findByTitle(title) {
-  //   return http.get(`/tutorials?title=${title}`);
-  // }
 }
 
 export default new ClientDataService();

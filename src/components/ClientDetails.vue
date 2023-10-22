@@ -3,9 +3,10 @@
         <div class="row right">
             <a class="waves-effect waves-green btn-floating modal-trigger" data-target="confirmationModal"><i
                     class="material-icons large">delete_forever</i></a>
-            <router-link :to="{name:'EditClient', query:{client:client.client_id}}"  class="waves-effect waves-green btn-floating" @click="showTable">
+            <router-link :to="{ name: 'EditClient', query: { client: client.client_id } }"
+                class="waves-effect waves-green btn-floating" @click="showTable">
                 <i class="material-icons large">edit</i>
-                </router-link>
+            </router-link>
             <a class="waves-effect waves-green btn-floating" @click="showTable"><i
                     class="material-icons large">close</i></a>
         </div>
@@ -136,8 +137,7 @@
             <div class="col s5 ">
                 <div class="row center-align">
                     <div class="image-container col s12">
-                        <ProfileAvatar username="j" class="materialboxed" customSize="150px"
-                            image="src/assets/images/profile-pic.jpeg">
+                        <ProfileAvatar :username="client.name" class="materialboxed" customSize="150px" :image="picture">
                         </ProfileAvatar>
                     </div>
                     <div class="col s12">Credit Score:{{ client.credit_score }}</div>
@@ -192,10 +192,11 @@ export default {
     data() {
         return {
             loans: {},
-                }
+            picture:"",
+        }
     },
     methods: {
-        
+
         deleteEntry() {
             ClientDataService.delete(this.client.client_id)
                 .catch(e => {
@@ -214,9 +215,20 @@ export default {
                 .catch(e => {
                     console.log(e);
                 })
+        },
+        getProfilePic() {
+            ClientDataService.getImage(this.client.picture)
+                .then(res => {
+                    // console.log(res)
+                    this.picture = res.config.baseURL + res.config.url;
+                })
+                .catch(e => {
+                    console.log(e);
+                })
         }
     },
     mounted() {
+        this.getProfilePic();
         this.getLoans();
         var materialBox = document.querySelectorAll('.materialboxed');
         M.Materialbox.init(materialBox);
@@ -305,7 +317,8 @@ div#confirmationModal {
 .modal-content p {
     font-weight: normal;
 }
-.materialboxed{
+
+.materialboxed {
     margin-top: 10px;
 }
 </style>
