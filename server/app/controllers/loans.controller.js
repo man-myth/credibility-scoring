@@ -53,7 +53,7 @@ exports.findAllLoans = (req, res) => {
   })
     .then((data) => {
       if (data) {
-        console.log(data);
+    
         res.send(data);
       } else {
         res.status(404).send({
@@ -112,7 +112,6 @@ exports.delete = (req, res) => {
 
 exports.update = (req, res) => {
   var id = parseInt(req.params.id);
-  console.log(id)
   Loans.update(req.body, {
     where: { loan_id: id },
   })

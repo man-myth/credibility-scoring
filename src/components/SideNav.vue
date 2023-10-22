@@ -6,7 +6,7 @@
                     <div class="profile-avatar">
                         <ProfileAvatar username="j" image="src/assets/images/profile-pic.jpeg" customSize="150px" ></ProfileAvatar>
                     </div>
-                    <div class="flow-text center-align">Juan Dela Cruz</div>
+                    <div class="flow-text center-align">Admin</div>
                 </div>
             </li>
             <li></li>

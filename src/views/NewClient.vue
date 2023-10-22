@@ -236,7 +236,7 @@
 
         <form action="/clients" method="get">
             <!-- <form > -->
-            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="button"
+            <button :disabled="isFormInvalid" class="btn-large waves-effect waves-light primary-color" type="submit"
                 @click="submitForm">Add
                 <i class="material-icons left">add</i>
             </button>
@@ -262,7 +262,7 @@ export default {
             gender: null,
             birthday: null,
             contact: null,
-            credit_score: 600,
+            credit_score: 0,
             marital_status: null,
             dependents: 0,
             education: null,
@@ -279,24 +279,6 @@ export default {
     },
     computed: {
         isFormInvalid() {
-            //             console.log(!this.name)
-            //             console.log(!this.picture)
-            //             console.log(!this.address)
-            //             console.log(!this.gender)
-            //             console.log(!this.birthday)
-            //             console.log(!this.contact)
-            //             console.log(!this.marital_status)
-            //             console.log(!this.dependents>=0)
-            //             console.log(!this.education)
-            //             console.log(!this.housing)
-            //             console.log(!this.years_residence)
-            //             console.log(!this.employment)
-            //             console.log(!this.industry)
-            //             console.log(!this.loan_history)
-            //             console.log(!this.income)
-            //             console.log(!this.expenses)
-                        // console.log(!(this.savings >= 0))
-            // console.log("-----------------")
             return !this.name ||
                 !this.picture ||
                 !this.address ||

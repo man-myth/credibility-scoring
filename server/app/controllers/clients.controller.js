@@ -44,7 +44,7 @@ exports.create = (req, res) => {
 
   // Define the path to save the file
   const filePath = path.join(uploadDirectory, fileName);
-  console.log(filePath)
+  // console.log(filePath)
   // Save the image to the specified path
   fs.writeFile(filePath, buffer, 'base64', (err) => {
     if (err) {
@@ -93,8 +93,6 @@ exports.create = (req, res) => {
 }
 
 exports.getImage = (req, res) => {
-  console.log(uploadDirectory)
-  console.log(req.params.image)
   const imagePath = path.join(uploadDirectory, req.params.image);
   ;
   fs.readFile(imagePath, (err, data) => {
